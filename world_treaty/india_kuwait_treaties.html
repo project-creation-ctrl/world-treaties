@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>India–Kuwait Treaty Architecture</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root { --c1:#1d6fa4; --c2:#155e8a; --india:#FF6B1A; --gold:#E8B84B; --teal:#2DD4BF; --danger:#e63946; --bg:#0D0D0D; --bg2:#141414; --surface:rgba(255,255,255,0.04); --border:rgba(255,255,255,0.08); --text:#F0EDE6; --muted:rgba(240,237,230,0.5); --faint:rgba(240,237,230,0.15); }
+* { margin:0; padding:0; box-sizing:border-box; } html { scroll-behavior:smooth; }
+body { background:var(--bg); color:var(--text); font-family:'DM Sans',sans-serif; overflow-x:hidden; }
+.hero { min-height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; position:relative; overflow:hidden; padding:2rem; text-align:center; }
+.hero-noise { position:absolute; inset:0; background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(29,111,164,0.14) 0%,transparent 70%),radial-gradient(ellipse 40% 40% at 80% 80%,rgba(255,107,26,0.08) 0%,transparent 60%); pointer-events:none; }
+.dot-grid { position:absolute; inset:0; background-image:radial-gradient(rgba(255,255,255,0.06) 1px,transparent 1px); background-size:40px 40px; pointer-events:none; }
+.hero-eyebrow { font-family:'Space Mono',monospace; font-size:0.65rem; letter-spacing:0.4em; text-transform:uppercase; color:var(--c1); margin-bottom:2rem; opacity:0; animation:rise 0.9s ease forwards 0.2s; }
+.hero h1 { font-family:'Cormorant Garamond',serif; font-size:clamp(2.8rem,8vw,7rem); font-weight:700; line-height:1.0; max-width:1000px; opacity:0; animation:rise 1s ease forwards 0.4s; }
+.hero h1 .c1{color:var(--c1);} .hero h1 .ind{color:var(--india);}
+.hero-sub { font-size:1rem; font-weight:300; color:var(--muted); max-width:620px; line-height:1.8; margin-top:1.5rem; opacity:0; animation:rise 1s ease forwards 0.6s; }
+.hero-flags { display:flex; align-items:center; gap:1rem; margin-top:3rem; opacity:0; animation:rise 1s ease forwards 0.8s; }
+.flag-pill { font-family:'Space Mono',monospace; font-size:0.7rem; letter-spacing:0.1em; padding:0.5rem 1.2rem; border-radius:100px; border:1px solid; }
+.flag-c1{border-color:var(--c1);color:var(--c1);background:rgba(29,111,164,0.09);} .flag-ind{border-color:var(--india);color:var(--india);background:rgba(255,107,26,0.08);} .vs{color:var(--muted);font-size:0.8rem;}
+.hero-kpis { display:flex; gap:3rem; margin-top:4rem; flex-wrap:wrap; justify-content:center; opacity:0; animation:rise 1s ease forwards 1s; }
+.kpi{text-align:center;} .kpi-val{font-family:'Cormorant Garamond',serif;font-size:3.2rem;font-weight:700;display:block;line-height:1;} .kpi-lbl{font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);display:block;margin-top:0.4rem;}
+.scroll-down{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.3em;color:var(--faint);animation:bounce 2s ease infinite;}
+nav{position:sticky;top:0;z-index:100;background:rgba(13,13,13,0.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:0.9rem 2rem;display:flex;align-items:center;gap:2rem;overflow-x:auto;}
+.nav-brand{font-family:'Cormorant Garamond',serif;font-size:1rem;font-style:italic;color:var(--text);white-space:nowrap;margin-right:auto;}
+nav a{font-family:'Space Mono',monospace;font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);text-decoration:none;white-space:nowrap;transition:color 0.2s;}
+nav a:hover{color:var(--c1);}
+.wrap{max-width:1200px;margin:0 auto;padding:5rem 2rem;}
+.section-eyebrow{font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--c1);margin-bottom:1rem;}
+.section-eyebrow.orange{color:var(--india);} .section-eyebrow.gold{color:var(--gold);} .section-eyebrow.teal{color:var(--teal);}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:600;line-height:1.15;margin-bottom:1rem;}
+.section-body{font-size:1rem;font-weight:300;color:var(--muted);max-width:700px;line-height:1.85;margin-bottom:3rem;}
+.stripe{background:var(--bg2);}
+.chart-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:1.75rem;position:relative;overflow:hidden;}
+.chart-card::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--c1),transparent);}
+.chart-card.orange-top::after{background:linear-gradient(90deg,var(--india),transparent);}
+.chart-card.gold-top::after{background:linear-gradient(90deg,var(--gold),transparent);}
+.chart-title{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:600;margin-bottom:0.4rem;}
+.chart-sub{font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.1em;color:var(--muted);margin-bottom:1.5rem;}
+.chart-2col{display:grid;grid-template-columns:repeat(auto-fit,minmax(460px,1fr));gap:1.5rem;margin-bottom:1.5rem;}
+.chart-3col{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;margin-bottom:1.5rem;}
+.era-btns{display:flex;flex-wrap:wrap;gap:0.6rem;margin-bottom:1.5rem;}
+.era-btn{font-family:'Space Mono',monospace;font-size:0.62rem;letter-spacing:0.1em;padding:0.45rem 1rem;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;border-radius:100px;transition:all 0.2s;}
+.era-btn:hover,.era-btn.active{background:var(--c1);border-color:var(--c1);color:#fff;}
+.type-btns{display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:2rem;}
+.type-btn{font-family:'Space Mono',monospace;font-size:0.58rem;letter-spacing:0.1em;padding:0.35rem 0.9rem;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;border-radius:3px;transition:all 0.2s;text-transform:uppercase;}
+.type-btn.active,.type-btn:hover{border-color:rgba(255,255,255,0.3);color:var(--text);}
+.type-btn[data-t="trade"].active{border-color:var(--gold);color:var(--gold);}
+.type-btn[data-t="legal"].active{border-color:#60a5fa;color:#60a5fa;}
+.type-btn[data-t="energy"].active{border-color:#f97316;color:#f97316;}
+.type-btn[data-t="cultural"].active{border-color:#a78bfa;color:#a78bfa;}
+.type-btn[data-t="military"].active{border-color:var(--teal);color:var(--teal);}
+.tl-wrap{position:relative;padding-left:2.5rem;}
+.tl-wrap::before{content:'';position:absolute;left:0;top:0;bottom:0;width:1px;background:linear-gradient(var(--c1),var(--c2),transparent);}
+.tl-item{position:relative;margin-bottom:2rem;opacity:0;transform:translateX(-8px);transition:all 0.35s ease;}
+.tl-item.visible{opacity:1;transform:translateX(0);}
+.tl-dot{position:absolute;left:-2.85rem;top:0.3rem;width:10px;height:10px;border-radius:50%;background:var(--c1);border:2px solid var(--bg);box-shadow:0 0 0 2px var(--c1);}
+.tl-dot.gold{background:var(--gold);box-shadow:0 0 0 2px var(--gold);}
+.tl-dot.teal{background:var(--teal);box-shadow:0 0 0 2px var(--teal);}
+.tl-dot.orange{background:#f97316;box-shadow:0 0 0 2px #f97316;}
+.tl-dot.purple{background:#a78bfa;box-shadow:0 0 0 2px #a78bfa;}
+.tl-dot.blue{background:#60a5fa;box-shadow:0 0 0 2px #60a5fa;}
+.tl-year{font-family:'Space Mono',monospace;font-size:0.62rem;letter-spacing:0.18em;color:var(--c1);margin-bottom:0.25rem;}
+.tl-year.gold{color:var(--gold);} .tl-year.teal{color:var(--teal);} .tl-year.orange{color:#f97316;} .tl-year.purple{color:#a78bfa;} .tl-year.blue{color:#60a5fa;}
+.tl-title{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:600;margin-bottom:0.3rem;}
+.tl-desc{font-size:0.875rem;color:var(--muted);line-height:1.7;}
+.tl-tag{display:inline-block;font-family:'Space Mono',monospace;font-size:0.58rem;letter-spacing:0.08em;padding:0.15rem 0.55rem;border-radius:2px;margin-top:0.5rem;margin-right:0.3rem;text-transform:uppercase;}
+.tag-trade{background:rgba(232,184,75,0.15);color:var(--gold);border:1px solid rgba(232,184,75,0.3);}
+.tag-legal{background:rgba(96,165,250,0.12);color:#60a5fa;border:1px solid rgba(96,165,250,0.3);}
+.tag-energy{background:rgba(249,115,22,0.12);color:#f97316;border:1px solid rgba(249,115,22,0.3);}
+.tag-cultural{background:rgba(167,139,250,0.12);color:#a78bfa;border:1px solid rgba(167,139,250,0.3);}
+.tag-military{background:rgba(45,212,191,0.12);color:var(--teal);border:1px solid rgba(45,212,191,0.3);}
+.impact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.25rem;margin-bottom:2rem;}
+.impact-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:1.5rem;position:relative;overflow:hidden;transition:border-color 0.2s;}
+.impact-card:hover{border-color:rgba(255,255,255,0.15);}
+.impact-card .badge{position:absolute;top:1rem;right:1rem;font-family:'Space Mono',monospace;font-size:0.55rem;letter-spacing:0.1em;padding:0.2rem 0.5rem;border-radius:2px;text-transform:uppercase;}
+.badge-high{background:rgba(29,111,164,0.2);color:var(--c1);border:1px solid rgba(29,111,164,0.35);}
+.badge-med{background:rgba(232,184,75,0.15);color:var(--gold);border:1px solid rgba(232,184,75,0.3);}
+.badge-teal{background:rgba(45,212,191,0.12);color:var(--teal);border:1px solid rgba(45,212,191,0.3);}
+.badge-strategic{background:rgba(255,107,26,0.15);color:var(--india);border:1px solid rgba(255,107,26,0.3);}
+.impact-icon{font-size:1.8rem;margin-bottom:0.75rem;}
+.impact-title{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:600;margin-bottom:0.6rem;}
+.impact-body{font-size:0.85rem;color:var(--muted);line-height:1.7;}
+.quote-box{background:rgba(29,111,164,0.06);border:1px solid rgba(29,111,164,0.2);border-left:3px solid var(--c1);border-radius:0 6px 6px 0;padding:1.5rem 2rem;margin:2rem 0;}
+.quote-box.gold-border{border-left-color:var(--gold);background:rgba(232,184,75,0.05);border-color:rgba(232,184,75,0.15);}
+.quote-label{font-family:'Space Mono',monospace;font-size:0.58rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--c1);margin-bottom:0.75rem;}
+.quote-label.gold{color:var(--gold);}
+.quote-text{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-style:italic;line-height:1.75;}
+.cmp-table{width:100%;border-collapse:collapse;font-size:0.875rem;margin-bottom:2rem;}
+.cmp-table th{font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);padding:0.7rem 1rem;border-bottom:1px solid var(--border);text-align:left;}
+.cmp-table td{padding:0.85rem 1rem;border-bottom:1px solid rgba(255,255,255,0.04);color:rgba(240,237,230,0.85);line-height:1.5;}
+.cmp-table tr:hover td{background:rgba(255,255,255,0.02);}
+.align-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1rem;margin:2rem 0;}
+.align-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:1.25rem;text-align:center;}
+.align-country{font-family:'Space Mono',monospace;font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:0.75rem;}
+.align-score{font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:700;display:block;line-height:1;margin-bottom:0.5rem;}
+.bar-outer{height:4px;background:rgba(255,255,255,0.08);border-radius:2px;overflow:hidden;margin:0.4rem 0;}
+.bar-inner{height:100%;border-radius:2px;width:0;transition:width 1.2s ease;}
+.align-label{font-family:'Space Mono',monospace;font-size:0.55rem;letter-spacing:0.1em;color:var(--faint);}
+.status-pill{display:inline-block;font-family:'Space Mono',monospace;font-size:0.58rem;letter-spacing:0.1em;padding:0.2rem 0.6rem;border-radius:100px;text-transform:uppercase;}
+.status-active{background:rgba(29,111,164,0.15);color:var(--c1);border:1px solid rgba(29,111,164,0.3);}
+.status-signed{background:rgba(232,184,75,0.12);color:var(--gold);border:1px solid rgba(232,184,75,0.25);}
+.status-terminated{background:rgba(100,100,100,0.15);color:#888;border:1px solid rgba(100,100,100,0.3);}
+.status-negotiating{background:rgba(45,212,191,0.12);color:var(--teal);border:1px solid rgba(45,212,191,0.3);}
+.hr{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:2rem 0;}
+footer{background:rgba(0,0,0,0.5);border-top:1px solid var(--border);padding:3rem 2rem;text-align:center;}
+footer h3{font-family:'Cormorant Garamond',serif;font-size:1.2rem;margin-bottom:0.5rem;}
+footer p{font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.12em;color:var(--faint);margin-top:0.5rem;}
+@keyframes rise{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+@keyframes bounce{0%,100%{opacity:0.3;transform:translateX(-50%) translateY(0);}50%{opacity:0.6;transform:translateX(-50%) translateY(6px);}}
+@media(max-width:768px){.chart-2col,.chart-3col{grid-template-columns:1fr;}.hero-kpis{gap:1.5rem;}}
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="hero-noise"></div><div class="dot-grid"></div>
+  <div class="hero-eyebrow">Public International Law · Treaty Analysis · 2025–26</div>
+  <h1><span class="ind">India</span> &amp; <span class="c1">Kuwait</span><br>Treaty Architecture</h1>
+  <p class="hero-sub">From the Indian Rupee as Kuwait's first currency to a $10 billion bilateral trade relationship — how India and Kuwait built one of the Gulf's most comprehensive legal frameworks across trade, security, culture, and diaspora governance.</p>
+  <div class="hero-flags"><span class="flag-pill flag-ind">🇮🇳 India</span><span class="vs">—</span><span class="flag-pill flag-c1">🇰🇼 Kuwait</span></div>
+  <div class="hero-kpis">
+    <div class="kpi"><span class="kpi-val" style="color:var(--c1)">1961</span><span class="kpi-lbl">Diplomatic Relations</span></div>
+    <div class="kpi"><span class="kpi-val" style="color:var(--gold)">30+</span><span class="kpi-lbl">Bilateral Agreements</span></div>
+    <div class="kpi"><span class="kpi-val" style="color:#f97316">$10.2B</span><span class="kpi-lbl">Bilateral Trade FY25</span></div>
+    <div class="kpi"><span class="kpi-val" style="color:var(--india)">1M+</span><span class="kpi-lbl">Indian Diaspora in Kuwait</span></div>
+    <div class="kpi"><span class="kpi-val" style="color:var(--teal)">1970</span><span class="kpi-lbl">First Cultural Agreement</span></div>
+  </div>
+  <div class="scroll-down">↓ SCROLL</div>
+</div>
+
+<nav>
+  <span class="nav-brand">India–Kuwait Treaty Watch</span>
+  <a href="#timeline">Timeline</a>
+  <a href="#agreements">Agreements</a>
+  <a href="#trade">Trade</a>
+  <a href="#diaspora">Diaspora</a>
+  <a href="#analysis">PIL Analysis</a>
+</nav>
+
+<div class="wrap" id="timeline">
+  <div class="section-eyebrow">Section 01 — Historical Record</div>
+  <h2 class="section-title">India–Kuwait Treaty Timeline: 1961–2025</h2>
+  <p class="section-body">India and Kuwait have unique historical ties — the Indian Rupee was Kuwait's legal tender until 1961, and the Indian community has been the largest expatriate group for decades. The treaty architecture spans cultural cooperation (1970), extradition, double taxation, investment protection, and most recently defence cooperation.</p>
+  <div class="era-btns">
+    <button class="era-btn active" onclick="filterTL('all',this)">All Eras</button>
+    <button class="era-btn" onclick="filterTL('early',this)">Foundation 1961–1999</button>
+    <button class="era-btn" onclick="filterTL('modern',this)">Modern Framework 2000–2018</button>
+    <button class="era-btn" onclick="filterTL('new',this)">Strategic Era 2019–2025</button>
+  </div>
+  <div class="type-btns">
+    <button class="type-btn active" data-t="all" onclick="filterType('all',this)">All Types</button>
+    <button class="type-btn" data-t="trade" onclick="filterType('trade',this)">Trade</button>
+    <button class="type-btn" data-t="legal" onclick="filterType('legal',this)">Legal</button>
+    <button class="type-btn" data-t="energy" onclick="filterType('energy',this)">Energy</button>
+    <button class="type-btn" data-t="cultural" onclick="filterType('cultural',this)">Cultural</button>
+    <button class="type-btn" data-t="military" onclick="filterType('military',this)">Defence</button>
+  </div>
+  <div class="tl-wrap" id="tl-container"></div>
+</div>
+
+<div class="stripe">
+<div class="wrap" id="agreements">
+  <div class="section-eyebrow orange">Section 02 — Full Agreement Register</div>
+  <h2 class="section-title">India–Kuwait Agreements: Comprehensive List</h2>
+  <p class="section-body">Kuwait has one of the most detailed bilateral agreement portfolios with India in the Gulf — spanning legal, economic, cultural, scientific, and security domains. The depth reflects the large Indian diaspora (1M+), significant oil trade, and growing defence alignment.</p>
+  <table class="cmp-table">
+    <thead><tr><th>Agreement / MoU</th><th>Year</th><th>Type</th><th>Status</th><th>Significance</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Cultural Agreement</strong></td><td>1970</td><td>Cultural</td><td><span class="status-pill status-active">Active</span></td><td>First formal bilateral agreement; foundation of people-to-people ties; covers art, culture, education, and sports</td></tr>
+      <tr><td><strong>Trade Agreement</strong></td><td>1974</td><td>Trade</td><td><span class="status-pill status-active">Active</span></td><td>Bilateral trade framework; formalises commercial exchange</td></tr>
+      <tr><td><strong>General Cooperation Agreement</strong></td><td>1992</td><td>Political</td><td><span class="status-pill status-active">Active</span></td><td>Broad bilateral cooperation framework signed post-Gulf War (India evacuated 170,000 nationals from Kuwait in 1990)</td></tr>
+      <tr><td><strong>KISR–CSIR Protocol</strong></td><td>1995</td><td>Science</td><td><span class="status-pill status-active">Active</span></td><td>Kuwait Institute for Scientific Research and India's CSIR cooperation on joint research</td></tr>
+      <tr><td><strong>MoU on Civil Aviation</strong></td><td>2001</td><td>Trade</td><td><span class="status-pill status-active">Active</span></td><td>Air services agreement; multiple airlines on multiple India-Kuwait routes</td></tr>
+      <tr><td><strong>Agreement on Reciprocal Protection of Investment (BIPPA)</strong></td><td>2001</td><td>Investment</td><td><span class="status-pill status-terminated">Expired 2018</span></td><td>Signed Nov 2001; in force Jun 2003; expired Jun 2018. New BIT negotiations: 2nd round held July 2025.</td></tr>
+      <tr><td><strong>Mutual Legal Assistance (Criminal Matters)</strong></td><td>2004</td><td>Legal</td><td><span class="status-pill status-active">Active</span></td><td>Enables legal cooperation, evidence sharing and asset recovery in criminal cases</td></tr>
+      <tr><td><strong>Extradition Treaty</strong></td><td>2004</td><td>Legal</td><td><span class="status-pill status-active">Active</span></td><td>Critical for governance of 1M+ Indian diaspora; enables fugitive returns</td></tr>
+      <tr><td><strong>Judicial Cooperation (Civil & Commercial)</strong></td><td>2005</td><td>Legal</td><td><span class="status-pill status-active">Active</span></td><td>Civil legal assistance framework; protects Indian workers' contractual rights</td></tr>
+      <tr><td><strong>Avoidance of Double Taxation Agreement (DTAA)</strong></td><td>2006</td><td>Economic</td><td><span class="status-pill status-active">Active</span></td><td>Signed during Amir of Kuwait's historic 2006 India visit along with Drug Control Agreement</td></tr>
+      <tr><td><strong>MoU on Labour, Employment & Manpower</strong></td><td>2007</td><td>Labour</td><td><span class="status-pill status-active">Active</span></td><td>Governs 1M+ Indian workers; covers recruitment, wages, welfare, grievances</td></tr>
+      <tr><td><strong>S&T Cooperation Agreement</strong></td><td>2009</td><td>Science</td><td><span class="status-pill status-active">Active</span></td><td>Scientific and technological research cooperation</td></tr>
+      <tr><td><strong>Cultural and Information Exchange Programme</strong></td><td>2009</td><td>Cultural</td><td><span class="status-pill status-active">Active</span></td><td>Five-year programmes renewed periodically; latest 2025–2029</td></tr>
+      <tr><td><strong>Education & Learning Cooperation</strong></td><td>2009</td><td>Education</td><td><span class="status-pill status-active">Active</span></td><td>Academic cooperation; 26 CBSE schools in Kuwait with 60,000+ students</td></tr>
+      <tr><td><strong>MoU on Medical Cooperation</strong></td><td>2012</td><td>Health</td><td><span class="status-pill status-active">Active</span></td><td>Joint Working Group on medical cooperation; Kuwait sent 425+ MT of liquid oxygen to India during COVID-19</td></tr>
+      <tr><td><strong>Agreement on Transfer of Sentenced Persons</strong></td><td>2013</td><td>Legal</td><td><span class="status-pill status-active">Active</span></td><td>Allows Indian nationals sentenced in Kuwait to serve sentences in India</td></tr>
+      <tr><td><strong>FSI–Kuwait Diplomatic Institute MoU</strong></td><td>2013</td><td>Diplomatic</td><td><span class="status-pill status-active">Active</span></td><td>India's Foreign Service Institute and Kuwait's Saud N. Al-Sabah Diplomatic Institute cooperation</td></tr>
+      <tr><td><strong>Visa Exemption (Diplomatic/Official Passports)</strong></td><td>2018</td><td>Consular</td><td><span class="status-pill status-active">Active</span></td><td>Mutual visa exemption for diplomatic and official passport holders</td></tr>
+      <tr><td><strong>MoU on Domestic Worker Recruitment</strong></td><td>2021</td><td>Labour</td><td><span class="status-pill status-active">Active</span></td><td>Specific framework for domestic worker rights; protects vulnerable Indian workers</td></tr>
+      <tr><td><strong>MoU on Defence Cooperation</strong></td><td>2024</td><td>Defence</td><td><span class="status-pill status-signed">Signed Dec 2024</span></td><td>Signed during PM Modi's Kuwait visit — landmark defence MoU; first major defence agreement with Kuwait</td></tr>
+      <tr><td><strong>Cultural Exchange Programme 2025–2029</strong></td><td>2024</td><td>Cultural</td><td><span class="status-pill status-active">Active</span></td><td>Five-year cultural programme renewed; ICCR Hindi Chair at GUST University</td></tr>
+      <tr><td><strong>ICCR MoU on Hindi Chair (GUST)</strong></td><td>2024</td><td>Education</td><td><span class="status-pill status-active">Active</span></td><td>Hindi Chair at Gulf University of Science and Technology; India Corners at 3 Kuwait universities</td></tr>
+      <tr><td><strong>New BIT Negotiations</strong></td><td>2025</td><td>Investment</td><td><span class="status-pill status-negotiating">Negotiating</span></td><td>2nd round held July 2025; replacing the expired 2001 BIPPA with updated investment protection</td></tr>
+    </tbody>
+  </table>
+  <div class="quote-box">
+    <div class="quote-label">Historical Anchor</div>
+    <p class="quote-text">"Until 1961, the Indian Rupee was the legal tender in Kuwait. This commercial intimacy — predating Kuwait's own currency — created the foundation of bilateral trust that has enabled one of the Gulf's most legally dense bilateral frameworks. India's 1990 airlift of 170,000 nationals from Kuwait during the Gulf War is remembered in Kuwait as a defining act of friendship."</p>
+  </div>
+</div>
+</div>
+
+<div class="wrap" id="trade">
+  <div class="section-eyebrow gold">Section 03 — Trade, Energy & Investment</div>
+  <h2 class="section-title">The Economic Architecture</h2>
+  <p class="section-body">Kuwait is India's 6th largest crude supplier (3.5% of energy needs in FY25). Bilateral trade reached $10.22B in FY25. The Kuwait Investment Authority (KIA), PIFSS, and private groups like Al-Ghanim invest in India, while Indian firms like L&T, Shapoorji Pallonji execute major Kuwaiti infrastructure projects.</p>
+  <div class="chart-2col">
+    <div class="chart-card"><div class="chart-title">Bilateral Trade Growth (USD Billion)</div><div class="chart-sub">FY 2018–2025</div><canvas id="tradeChart"></canvas></div>
+    <div class="chart-card orange-top"><div class="chart-title">Treaty Category Portfolio</div><div class="chart-sub">India–Kuwait agreements by type</div><canvas id="typeChart"></canvas></div>
+  </div>
+  <div class="chart-2col">
+    <div class="chart-card gold-top"><div class="chart-title">Kuwait's Energy Significance to India</div><div class="chart-sub">% of India's total crude & LPG imports from Kuwait</div><canvas id="energyChart"></canvas></div>
+    <div class="chart-card"><div class="chart-title">Indian Diaspora Profile in Kuwait</div><div class="chart-sub">Sector distribution — 1M+ strong community</div><canvas id="diasporaChart"></canvas></div>
+  </div>
+</div>
+
+<div class="stripe">
+<div class="wrap" id="diaspora">
+  <div class="section-eyebrow teal">Section 04 — Diaspora: The Human Treaty</div>
+  <h2 class="section-title">1 Million Indians — The Living Bilateral Bond</h2>
+  <p class="section-body">India's 1M+ strong community in Kuwait is the largest expatriate community in Kuwait and arguably India's most important diaspora asset in the Gulf. Many bilateral agreements exist primarily to protect these workers — making the diaspora itself a driving force of treaty-making.</p>
+  <div class="impact-grid">
+    <div class="impact-card"><div class="badge badge-high">Scale</div><div class="impact-icon">👥</div><div class="impact-title">1 Million+ Indian Nationals</div><div class="impact-body">India's community is Kuwait's largest and most preferred expatriate group. Engineers, doctors, chartered accountants, software professionals — white-collar presence growing. 200+ Indian associations registered with the Embassy.</div></div>
+    <div class="impact-card"><div class="badge badge-teal">Education</div><div class="impact-icon">🏫</div><div class="impact-title">26 CBSE Schools — 60,000 Students</div><div class="impact-body">India operates 26 CBSE curriculum schools in Kuwait with over 60,000 students — one of the most extensive Indian educational networks in any Gulf country. India Corners set up in 3 Kuwaiti universities.</div></div>
+    <div class="impact-card"><div class="badge badge-med">Labour</div><div class="impact-icon">⚖️</div><div class="impact-title">MoU on Labour & Domestic Workers</div><div class="impact-body">Two MoUs (2007 General Labour; 2021 Domestic Workers) protect Indian workers' rights. A Joint Working Group meets regularly to address labour issues, wage disputes, and repatriation cases.</div></div>
+    <div class="impact-card"><div class="badge badge-strategic">COVID</div><div class="impact-icon">💊</div><div class="impact-title">Kuwait's COVID Solidarity — Oxygen to India</div><div class="impact-body">During India's COVID-19 second wave, Kuwait sent 425+ metric tonnes of liquid medical oxygen and 12,500+ oxygen cylinders by Indian Air Force aircraft. Kuwait Towers were lit in Indian Tricolour on May 26, 2021.</div></div>
+    <div class="impact-card"><div class="badge badge-high">Investment</div><div class="impact-icon">💼</div><div class="impact-title">NRI Business Networks</div><div class="impact-body">NRI-owned retail chains (Lulu Hypermarket, Centre Point), large distributor companies, and businesses 2–3 generations old create a parallel economic treaty through commerce. Their presence expands the market for Indian goods.</div></div>
+    <div class="impact-card"><div class="badge badge-med">Remittances</div><div class="impact-icon">💸</div><div class="impact-title">Significant Remittance Flows</div><div class="impact-body">1M+ Indian workers generate significant annual remittances to India. The 2021 Domestic Worker Recruitment MoU specifically addresses protections for the most vulnerable segment — household workers often excluded from general labour treaties.</div></div>
+  </div>
+</div>
+</div>
+
+<div class="wrap" id="analysis">
+  <div class="section-eyebrow gold">Section 05 — PIL Analysis</div>
+  <h2 class="section-title">Treaty Patterns: What Does Kuwait's Architecture Reveal?</h2>
+  <p class="section-body">India–Kuwait treaties reveal a pattern driven primarily by diaspora governance rather than geopolitics. The dense legal framework (extradition, MLAT, domestic worker MoU, DTAA) is designed to protect 1M+ Indian workers — making Kuwait a case study in how diaspora presence drives treaty depth.</p>
+  <div class="align-grid" id="align-grid"></div>
+  <div class="hr"></div>
+  <div class="chart-3col">
+    <div class="chart-card"><div class="chart-title">India–Kuwait Sector Radar</div><div class="chart-sub">Engagement depth by domain</div><canvas id="radarChart"></canvas></div>
+    <div class="chart-card orange-top"><div class="chart-title">Treaty Drivers — Why India Signs</div><div class="chart-sub">What motivates each agreement type</div><canvas id="driverChart"></canvas></div>
+    <div class="chart-card gold-top"><div class="chart-title">GCC Bilateral Agreement Count (India)</div><div class="chart-sub">Formal agreements as of 2025</div><canvas id="gccChart"></canvas></div>
+  </div>
+  <div class="quote-box gold-border">
+    <div class="quote-label gold">PIL Doctrine — Consent & Diaspora-Driven Treaty-Making</div>
+    <p class="quote-text">"The India–Kuwait treaty regime illustrates a core principle of Public International Law: state consent to treaties is driven not merely by abstract strategic interest but by concrete social realities. The presence of 1 million Indian workers in Kuwait has necessitated one of the Gulf's most legally elaborate bilateral frameworks — covering extradition, criminal legal assistance, civil judicial cooperation, labour rights, domestic worker welfare, and sentenced persons transfer. Diaspora, not diplomacy alone, built this architecture."</p>
+  </div>
+</div>
+
+<footer>
+  <h3>India–Kuwait Treaty Architecture — Public International Law Analysis</h3>
+  <p>Sources: Embassy of India Kuwait · MEA India · Kuwait Consulate India · UNCTAD · Wikipedia · PIB India</p>
+  <p style="margin-top:0.5rem;">Data as of April 2026 · Created for Public International Law Research</p>
+</footer>
+
+<script>
+Chart.defaults.color='rgba(240,237,230,0.55)'; Chart.defaults.borderColor='rgba(255,255,255,0.07)'; Chart.defaults.font.family="'DM Sans',sans-serif";
+const gridColor='rgba(255,255,255,0.06)';
+const TL=[
+  {year:1961,era:'early',type:'cultural',dotClass:'',yearClass:'',title:'Diplomatic Relations Established',desc:'India and Kuwait establish formal diplomatic relations in June 1961. The first Kuwaiti Ambassador arrives in New Delhi. Until 1961, the Indian Rupee was the legal tender in Kuwait — a unique historical bond.'},
+  {year:1970,era:'early',type:'cultural',dotClass:'purple',yearClass:'purple',title:'Cultural Agreement — First Formal Treaty',desc:'India and Kuwait sign their first formal bilateral agreement on cultural cooperation. Covers art, culture, education, sports, mass media and science. Foundation for subsequent people-to-people framework.'},
+  {year:1974,era:'early',type:'trade',dotClass:'gold',yearClass:'gold',title:'Trade Agreement Signed',desc:'Bilateral trade agreement formalises commercial exchange. Kuwait\'s oil-driven economy and India\'s goods exports create natural complementarity. Indian exports: textiles, food, machinery; imports: crude oil and LPG.'},
+  {year:1981,era:'early',type:'cultural',dotClass:'purple',yearClass:'purple',title:'PM Indira Gandhi Visits Kuwait',desc:'Prime Minister Indira Gandhi leads a historic state visit to Kuwait. First high-level engagement after the establishment of diplomatic relations. Strengthens people-to-people and commercial ties.'},
+  {year:1990,era:'early',type:'legal',dotClass:'blue',yearClass:'blue',title:'Gulf War — India\'s Great Airlift',desc:'Iraq invades Kuwait. India evacuates 170,000+ Indian nationals in the largest civilian airlift in history — even more than the Berlin Airlift. Kuwait never forgets this. PM Narendra Modi visited Kuwait in Dec 2024, the first Indian PM in 43 years.'},
+  {year:1992,era:'early',type:'trade',dotClass:'gold',yearClass:'gold',title:'General Cooperation Agreement',desc:'Broad-based bilateral cooperation agreement signed post-Gulf War. Covers political, economic, scientific and cultural domains. Re-anchors the bilateral relationship after the disruption of the 1990-91 Gulf War.'},
+  {year:2001,era:'modern',type:'trade',dotClass:'gold',yearClass:'gold',title:'BIPPA — Investment Protection Treaty',desc:'Bilateral Investment Promotion & Protection Agreement signed Nov 2001; in force June 2003. 15-year tenure. Expired June 2018. New BIT negotiations ongoing — 2nd round held July 2025.'},
+  {year:2004,era:'modern',type:'legal',dotClass:'blue',yearClass:'blue',title:'Extradition Treaty + MLAT Signed',desc:'India and Kuwait sign both the Extradition Treaty and the Mutual Legal Assistance Treaty (Criminal Matters) on August 25, 2004. Critical legal framework for governing the large Indian community.'},
+  {year:2005,era:'modern',type:'legal',dotClass:'blue',yearClass:'blue',title:'Judicial Cooperation — Civil & Commercial',desc:'Agreement on judicial cooperation in civil and commercial matters. Enables enforcement of court judgments, legal service of documents, and evidence sharing in commercial disputes.'},
+  {year:2006,era:'modern',type:'trade',dotClass:'gold',yearClass:'gold',title:'DTAA + Drug Control Agreement — Amir\'s Visit',desc:'Kuwait\'s Amir Sheikh Sabah Al-Ahmed visits India in June 2006. Three landmark agreements: DTAA (avoidance of double taxation), Drug Demand Reduction Agreement, and Cultural Information Exchange Programme.'},
+  {year:2007,era:'modern',type:'legal',dotClass:'blue',yearClass:'blue',title:'MoU on Labour & Manpower Development',desc:'Formalises protection for Indian workers in Kuwait. Covers recruitment standards, wage guarantees, welfare protections, dispute resolution, and repatriation. Joint Working Group meets regularly.'},
+  {year:2009,era:'modern',type:'cultural',dotClass:'purple',yearClass:'purple',title:'S&T Agreement + Education MoU',desc:'Science and Technology Cooperation Agreement; Education and Learning MoU; Cultural Information Exchange Programme — all signed in 2009. Deepens bilateral soft architecture.'},
+  {year:2012,era:'modern',type:'legal',dotClass:'blue',yearClass:'blue',title:'Medical Cooperation MoU',desc:'MoU on Medical Cooperation establishes a Joint Working Group on health. Kuwait employs significant numbers of Indian medics. During COVID-19 (2021), Kuwait sent 425+ MT of liquid oxygen to India.'},
+  {year:2017,era:'modern',type:'trade',dotClass:'gold',yearClass:'gold',title:'DTAA Protocol Revised',desc:'DTAA protocol updated on January 15, 2017. Improves tax treatment of investments and income flows, reflecting the growing scale of Kuwait Investment Authority (KIA) investments in India.'},
+  {year:2021,era:'new',type:'legal',dotClass:'blue',yearClass:'blue',title:'Domestic Worker Recruitment MoU',desc:'Landmark MoU specifically covering domestic worker recruitment and rights in Kuwait — addressing the most vulnerable segment of Indian workers who were excluded from the general labour framework.'},
+  {year:2024,era:'new',type:'military',dotClass:'teal',yearClass:'teal',title:'PM Modi Visits Kuwait — Defence MoU Signed',desc:'PM Modi\'s first full bilateral visit to Kuwait in December 2024 (first Indian PM in 43 years). MoU on Defence Cooperation signed — a landmark in bilateral relations. Cultural Exchange Programme for 2025-2029 also signed. Sports cooperation (2025-2028).'},
+  {year:2024,era:'new',type:'cultural',dotClass:'purple',yearClass:'purple',title:'ICCR Hindi Chair at GUST University',desc:'MoU for Hindi Chair at Gulf University of Science and Technology signed September 2024. India Corners established at GUST, Kuwait Technical College, and Kuwait College of Science and Technology.'},
+];
+let eF='all',tF='all';
+function renderTL(){const c=document.getElementById('tl-container');const filtered=TL.filter(d=>(eF==='all'||d.era===eF)&&(tF==='all'||d.type===tF));c.innerHTML=filtered.map((d,i)=>`<div class="tl-item" style="transition-delay:${i*0.04}s"><div class="tl-dot ${d.dotClass}"></div><div class="tl-year ${d.yearClass}">${d.year}</div><div class="tl-title">${d.title}</div><div class="tl-desc">${d.desc}</div><span class="tl-tag tag-${d.type}">${d.type}</span></div>`).join('');setTimeout(()=>document.querySelectorAll('.tl-item').forEach(el=>el.classList.add('visible')),60);}
+function filterTL(era,btn){eF=era;document.querySelectorAll('.era-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderTL();}
+function filterType(type,btn){tF=type;document.querySelectorAll('.type-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderTL();}
+renderTL();
+new Chart(document.getElementById('tradeChart'),{type:'line',data:{labels:['FY18','FY19','FY20','FY21','FY22','FY23','FY24','FY25'],datasets:[{label:'Total Bilateral Trade',data:[9.2,9.8,7.4,6.8,11.9,13.8,10.4,10.22],borderColor:'#1d6fa4',backgroundColor:'rgba(29,111,164,0.1)',fill:true,tension:0.4,pointRadius:4},{label:'India Exports',data:[1.2,1.3,1.0,1.1,1.5,1.8,1.7,1.93],borderColor:'#FF6B1A',fill:false,tension:0.4,pointRadius:3}]},options:{responsive:true,interaction:{mode:'index',intersect:false},plugins:{legend:{labels:{boxWidth:10,padding:18}}},scales:{x:{grid:{color:gridColor}},y:{grid:{color:gridColor},beginAtZero:true}}}});
+new Chart(document.getElementById('typeChart'),{type:'doughnut',data:{labels:['Legal / Extradition','Trade / Investment','Cultural / Education','Labour / Diaspora','Energy / Technical','Defence'],datasets:[{data:[28,22,20,18,8,4],backgroundColor:['#60a5fa','#E8B84B','#a78bfa','#1d6fa4','#f97316','#2DD4BF'],borderWidth:0}]},options:{cutout:'60%',plugins:{legend:{position:'bottom',labels:{boxWidth:10,padding:12,font:{size:11}}}}}});
+new Chart(document.getElementById('energyChart'),{type:'bar',data:{labels:['FY20','FY21','FY22','FY23','FY24','FY25'],datasets:[{label:'% of India Total Crude Imports',data:[4.2,3.8,4.5,4.1,3.8,3.5],backgroundColor:'rgba(249,115,22,0.7)',borderRadius:3},{label:'% of India Total LPG Imports',data:[6.5,5.8,6.2,5.9,5.5,5.0],backgroundColor:'rgba(45,212,191,0.6)',borderRadius:3}]},options:{plugins:{legend:{labels:{boxWidth:10}}},scales:{x:{grid:{display:false}},y:{grid:{color:gridColor},ticks:{callback:v=>v+'%'}}}}});
+new Chart(document.getElementById('diasporaChart'),{type:'doughnut',data:{labels:['Engineers & IT','Healthcare & Pharma','Education & Academia','Retail & Business','Construction','Domestic / Semi-skilled'],datasets:[{data:[22,18,14,20,12,14],backgroundColor:['#1d6fa4','#2DD4BF','#a78bfa','#E8B84B','#f97316','#60a5fa'],borderWidth:0}]},options:{cutout:'58%',plugins:{legend:{position:'bottom',labels:{boxWidth:10,padding:12,font:{size:11}}}}}});
+const alignData=[{country:'🇮🇳 India',score:70,color:'#FF6B1A',label:'Engaged multilateralist'},{country:'🇰🇼 Kuwait',score:55,color:'#1d6fa4',label:'Bilateral-focused Gulf state'},{country:'🇦🇪 UAE',score:75,color:'#2DD4BF',label:'Trade-first globalist'},{country:'🇸🇦 Saudi Arabia',score:45,color:'#E8B84B',label:'Selective bilateral'},{country:'🇮🇷 Iran',score:31,color:'#16a34a',label:'Sanctions-constrained'},{country:'🇯🇴 Jordan',score:52,color:'#a78bfa',label:'Moderate multilateralist'}];
+const ag=document.getElementById('align-grid');
+alignData.forEach(d=>{ag.innerHTML+=`<div class="align-card"><div class="align-country">${d.country}</div><span class="align-score" style="color:${d.color}">${d.score}%</span><div class="bar-outer"><div class="bar-inner" data-w="${d.score}" style="background:${d.color}"></div></div><div class="align-label">${d.label}</div></div>`;});
+setTimeout(()=>document.querySelectorAll('.bar-inner').forEach(b=>b.style.width=b.dataset.w+'%'),600);
+new Chart(document.getElementById('radarChart'),{type:'radar',data:{labels:['Legal/Justice','Trade','Energy','Culture/Education','Labour/Diaspora','Defence'],datasets:[{label:'India–Kuwait',data:[90,70,65,80,88,40],borderColor:'#1d6fa4',backgroundColor:'rgba(29,111,164,0.12)',pointBackgroundColor:'#1d6fa4',borderWidth:2},{label:'India–Gulf Average',data:[60,65,72,50,60,35],borderColor:'#FF6B1A',backgroundColor:'rgba(255,107,26,0.07)',pointBackgroundColor:'#FF6B1A',borderWidth:2}]},options:{scales:{r:{grid:{color:'rgba(255,255,255,0.08)'},pointLabels:{font:{size:10}},ticks:{display:false},suggestedMin:0,suggestedMax:100}},plugins:{legend:{labels:{boxWidth:10}}}}});
+new Chart(document.getElementById('driverChart'),{type:'bar',data:{labels:['Diaspora Protection','Energy Security','Trade Expansion','Legal Reciprocity','Cultural Soft Power','Strategic Defence'],datasets:[{label:'Driver Importance Score',data:[95,80,70,85,65,40],backgroundColor:['#1d6fa4','#f97316','#E8B84B','#60a5fa','#a78bfa','#2DD4BF'],borderRadius:3,borderWidth:0}]},options:{indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{grid:{color:gridColor},max:100},y:{grid:{display:false}}}}});
+new Chart(document.getElementById('gccChart'),{type:'bar',data:{labels:['UAE','Oman','Kuwait','Saudi Arabia','Qatar','Bahrain'],datasets:[{label:'Agreements with India (count)',data:[35,30,28,25,18,16],backgroundColor:['#2DD4BF','#C8893A','#1d6fa4','#E8B84B','#a78bfa','#60a5fa'],borderRadius:3,borderWidth:0}]},options:{plugins:{legend:{display:false}},scales:{x:{grid:{display:false}},y:{grid:{color:gridColor}}}}});
+</script>
+</body>
+</html>

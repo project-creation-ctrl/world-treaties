@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>India–UAE Treaty Architecture & Comprehensive Strategic Partnership</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --uae: #00732F;
+  --uae2: #005522;
+  --india: #FF6B1A;
+  --india2: #c0471a;
+  --gold: #E8B84B;
+  --danger: #e63946;
+  --teal: #2DD4BF;
+  --bg: #0D0D0D;
+  --bg2: #141414;
+  --bg3: #1a1a1a;
+  --surface: rgba(255,255,255,0.04);
+  --border: rgba(255,255,255,0.08);
+  --text: #F0EDE6;
+  --muted: rgba(240,237,230,0.5);
+  --faint: rgba(240,237,230,0.15);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; overflow-x: hidden; }
+
+.hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; overflow: hidden; padding: 2rem; text-align: center; }
+.hero-noise { position:absolute; inset:0; background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(0,115,47,0.13) 0%, transparent 70%), radial-gradient(ellipse 40% 40% at 80% 80%, rgba(255,107,26,0.08) 0%, transparent 60%), radial-gradient(ellipse 60% 50% at 10% 20%, rgba(232,184,75,0.06) 0%, transparent 60%); pointer-events:none; }
+.dot-grid { position:absolute; inset:0; background-image: radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px); background-size: 40px 40px; pointer-events:none; }
+.hero-eyebrow { font-family:'Space Mono', monospace; font-size: 0.65rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--uae); margin-bottom: 2rem; opacity:0; animation: rise 0.9s ease forwards 0.2s; }
+.hero h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.8rem, 8vw, 7rem); font-weight: 700; line-height: 1.0; max-width: 1000px; opacity:0; animation: rise 1s ease forwards 0.4s; }
+.hero h1 .uae { color: var(--uae); }
+.hero h1 .ind { color: var(--india); }
+.hero-sub { font-size: 1rem; font-weight: 300; color: var(--muted); max-width: 640px; line-height: 1.8; margin-top: 1.5rem; opacity:0; animation: rise 1s ease forwards 0.6s; }
+.hero-flags { display: flex; align-items: center; gap: 1rem; margin-top: 3rem; opacity:0; animation: rise 1s ease forwards 0.8s; }
+.flag-pill { font-family: 'Space Mono', monospace; font-size: 0.7rem; letter-spacing: 0.1em; padding: 0.5rem 1.2rem; border-radius: 100px; border: 1px solid; }
+.flag-uae { border-color: var(--uae); color: var(--uae); background: rgba(0,115,47,0.09); }
+.flag-ind { border-color: var(--india); color: var(--india); background: rgba(255,107,26,0.08); }
+.vs { color: var(--muted); font-size: 0.8rem; }
+.hero-kpis { display: flex; gap: 3rem; margin-top: 4rem; flex-wrap: wrap; justify-content: center; opacity:0; animation: rise 1s ease forwards 1s; }
+.kpi { text-align:center; }
+.kpi-val { font-family: 'Cormorant Garamond', serif; font-size: 3.2rem; font-weight: 700; display: block; line-height: 1; }
+.kpi-lbl { font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); display: block; margin-top: 0.4rem; }
+.scroll-down { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--faint); animation: bounce 2s ease infinite; }
+
+nav { position: sticky; top: 0; z-index: 100; background: rgba(13,13,13,0.92); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); padding: 0.9rem 2rem; display: flex; align-items: center; gap: 2rem; overflow-x: auto; }
+.nav-brand { font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-style: italic; color: var(--text); white-space: nowrap; margin-right: auto; }
+nav a { font-family: 'Space Mono', monospace; font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); text-decoration: none; white-space: nowrap; transition: color 0.2s; }
+nav a:hover { color: var(--uae); }
+
+.wrap { max-width: 1200px; margin: 0 auto; padding: 5rem 2rem; }
+.section-eyebrow { font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--uae); margin-bottom: 1rem; }
+.section-eyebrow.orange { color: var(--india); }
+.section-eyebrow.gold { color: var(--gold); }
+.section-eyebrow.danger { color: var(--danger); }
+.section-eyebrow.teal { color: var(--teal); }
+.section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 600; line-height: 1.15; margin-bottom: 1rem; }
+.section-body { font-size: 1rem; font-weight: 300; color: var(--muted); max-width: 700px; line-height: 1.85; margin-bottom: 3rem; }
+.stripe { background: var(--bg2); }
+
+.chart-card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 1.75rem; position: relative; overflow: hidden; }
+.chart-card::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--uae), transparent); }
+.chart-card.orange-top::after { background: linear-gradient(90deg, var(--india), transparent); }
+.chart-card.gold-top::after { background: linear-gradient(90deg, var(--gold), transparent); }
+.chart-card.danger-top::after { background: linear-gradient(90deg, var(--danger), transparent); }
+.chart-card.teal-top::after { background: linear-gradient(90deg, var(--teal), transparent); }
+.chart-title { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; font-weight: 600; margin-bottom: 0.4rem; }
+.chart-sub { font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 1.5rem; }
+.chart-2col { display: grid; grid-template-columns: repeat(auto-fit, minmax(460px, 1fr)); gap: 1.5rem; margin-bottom: 1.5rem; }
+.chart-3col { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-bottom: 1.5rem; }
+
+.era-btns { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 1.5rem; }
+.era-btn { font-family: 'Space Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; padding: 0.45rem 1rem; border: 1px solid var(--border); background: transparent; color: var(--muted); cursor: pointer; border-radius: 100px; transition: all 0.2s; }
+.era-btn:hover, .era-btn.active { background: var(--uae); border-color: var(--uae); color: #fff; }
+.type-btns { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2rem; }
+.type-btn { font-family: 'Space Mono', monospace; font-size: 0.58rem; letter-spacing: 0.1em; padding: 0.35rem 0.9rem; border: 1px solid var(--border); background: transparent; color: var(--muted); cursor: pointer; border-radius: 3px; transition: all 0.2s; text-transform: uppercase; }
+.type-btn.active, .type-btn:hover { border-color: rgba(255,255,255,0.3); color: var(--text); }
+.type-btn[data-t="trade"].active { border-color: var(--gold); color: var(--gold); }
+.type-btn[data-t="military"].active { border-color: var(--danger); color: var(--danger); }
+.type-btn[data-t="strategic"].active { border-color: var(--uae); color: var(--uae); }
+.type-btn[data-t="digital"].active { border-color: var(--teal); color: var(--teal); }
+.type-btn[data-t="cultural"].active { border-color: #a78bfa; color: #a78bfa; }
+.type-btn[data-t="energy"].active { border-color: #f97316; color: #f97316; }
+
+.tl-wrap { position: relative; padding-left: 2.5rem; }
+.tl-wrap::before { content:''; position: absolute; left: 0; top: 0; bottom: 0; width: 1px; background: linear-gradient(var(--uae), var(--uae2), transparent); }
+.tl-item { position: relative; margin-bottom: 2rem; opacity: 0; transform: translateX(-8px); transition: all 0.35s ease; }
+.tl-item.visible { opacity:1; transform: translateX(0); }
+.tl-dot { position: absolute; left: -2.85rem; top: 0.3rem; width: 10px; height: 10px; border-radius: 50%; background: var(--uae); border: 2px solid var(--bg); box-shadow: 0 0 0 2px var(--uae); }
+.tl-dot.danger { background: var(--danger); box-shadow: 0 0 0 2px var(--danger); }
+.tl-dot.gold { background: var(--gold); box-shadow: 0 0 0 2px var(--gold); }
+.tl-dot.blue { background: #3b82f6; box-shadow: 0 0 0 2px #3b82f6; }
+.tl-dot.teal { background: var(--teal); box-shadow: 0 0 0 2px var(--teal); }
+.tl-dot.purple { background: #a78bfa; box-shadow: 0 0 0 2px #a78bfa; }
+.tl-dot.orange { background: #f97316; box-shadow: 0 0 0 2px #f97316; }
+.tl-year { font-family: 'Space Mono', monospace; font-size: 0.62rem; letter-spacing: 0.18em; color: var(--uae); margin-bottom: 0.25rem; }
+.tl-year.danger { color: var(--danger); }
+.tl-year.gold { color: var(--gold); }
+.tl-year.blue { color: #3b82f6; }
+.tl-year.teal { color: var(--teal); }
+.tl-year.purple { color: #a78bfa; }
+.tl-year.orange { color: #f97316; }
+.tl-title { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-weight: 600; margin-bottom: 0.3rem; }
+.tl-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.7; }
+.tl-tag { display: inline-block; font-family: 'Space Mono', monospace; font-size: 0.58rem; letter-spacing: 0.08em; padding: 0.15rem 0.55rem; border-radius: 2px; margin-top: 0.5rem; margin-right: 0.3rem; text-transform: uppercase; }
+.tag-strategic { background: rgba(0,115,47,0.15); color: var(--uae); border: 1px solid rgba(0,115,47,0.3); }
+.tag-military { background: rgba(230,57,70,0.15); color: var(--danger); border: 1px solid rgba(230,57,70,0.3); }
+.tag-trade { background: rgba(232,184,75,0.15); color: var(--gold); border: 1px solid rgba(232,184,75,0.3); }
+.tag-digital { background: rgba(45,212,191,0.12); color: var(--teal); border: 1px solid rgba(45,212,191,0.3); }
+.tag-cultural { background: rgba(167,139,250,0.15); color: #a78bfa; border: 1px solid rgba(167,139,250,0.3); }
+.tag-energy { background: rgba(249,115,22,0.12); color: #f97316; border: 1px solid rgba(249,115,22,0.3); }
+
+.impact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.25rem; margin-bottom: 2rem; }
+.impact-card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 1.5rem; position: relative; overflow: hidden; transition: border-color 0.2s; }
+.impact-card:hover { border-color: rgba(255,255,255,0.15); }
+.impact-card .badge { position: absolute; top: 1rem; right: 1rem; font-family: 'Space Mono', monospace; font-size: 0.55rem; letter-spacing: 0.1em; padding: 0.2rem 0.5rem; border-radius: 2px; text-transform: uppercase; }
+.badge-critical { background: rgba(0,115,47,0.25); color: var(--uae); border: 1px solid rgba(0,115,47,0.3); }
+.badge-high { background: rgba(255,107,26,0.2); color: var(--india); border: 1px solid rgba(255,107,26,0.3); }
+.badge-med { background: rgba(232,184,75,0.15); color: var(--gold); border: 1px solid rgba(232,184,75,0.3); }
+.badge-teal { background: rgba(45,212,191,0.12); color: var(--teal); border: 1px solid rgba(45,212,191,0.3); }
+.badge-defence { background: rgba(230,57,70,0.15); color: var(--danger); border: 1px solid rgba(230,57,70,0.3); }
+.impact-icon { font-size: 1.8rem; margin-bottom: 0.75rem; }
+.impact-title { font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 600; margin-bottom: 0.6rem; }
+.impact-body { font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
+
+.quote-box { background: rgba(0,115,47,0.06); border: 1px solid rgba(0,115,47,0.2); border-left: 3px solid var(--uae); border-radius: 0 6px 6px 0; padding: 1.5rem 2rem; margin: 2rem 0; }
+.quote-box.gold-border { border-left-color: var(--gold); background: rgba(232,184,75,0.05); border-color: rgba(232,184,75,0.15); }
+.quote-box.danger-border { border-left-color: var(--danger); background: rgba(230,57,70,0.05); border-color: rgba(230,57,70,0.15); }
+.quote-box.teal-border { border-left-color: var(--teal); background: rgba(45,212,191,0.04); border-color: rgba(45,212,191,0.15); }
+.quote-label { font-family: 'Space Mono', monospace; font-size: 0.58rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--uae); margin-bottom: 0.75rem; }
+.quote-label.gold { color: var(--gold); }
+.quote-label.danger { color: var(--danger); }
+.quote-label.teal { color: var(--teal); }
+.quote-text { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; font-style: italic; line-height: 1.75; }
+
+.cmp-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; margin-bottom: 2rem; }
+.cmp-table th { font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); padding: 0.7rem 1rem; border-bottom: 1px solid var(--border); text-align: left; }
+.cmp-table td { padding: 0.85rem 1rem; border-bottom: 1px solid rgba(255,255,255,0.04); color: rgba(240,237,230,0.85); line-height: 1.5; }
+.cmp-table tr:hover td { background: rgba(255,255,255,0.02); }
+.cmp-table .uae-col { color: var(--uae); font-weight:500; }
+.cmp-table .ind-col { color: var(--india); font-weight:500; }
+
+.align-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 1rem; margin: 2rem 0; }
+.align-card { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 1.25rem; text-align: center; }
+.align-country { font-family: 'Space Mono', monospace; font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.75rem; }
+.align-score { font-family: 'Cormorant Garamond', serif; font-size: 2.4rem; font-weight: 700; display: block; line-height: 1; margin-bottom: 0.5rem; }
+.bar-outer { height: 4px; background: rgba(255,255,255,0.08); border-radius: 2px; overflow: hidden; margin: 0.4rem 0; }
+.bar-inner { height: 100%; border-radius: 2px; width: 0; transition: width 1.2s ease; }
+.align-label { font-family: 'Space Mono', monospace; font-size: 0.55rem; letter-spacing: 0.1em; color: var(--faint); }
+
+.status-pill { display: inline-block; font-family: 'Space Mono', monospace; font-size: 0.58rem; letter-spacing: 0.1em; padding: 0.2rem 0.6rem; border-radius: 100px; text-transform: uppercase; }
+.status-active { background: rgba(0,115,47,0.15); color: var(--uae); border: 1px solid rgba(0,115,47,0.3); }
+.status-signed { background: rgba(232,184,75,0.12); color: var(--gold); border: 1px solid rgba(232,184,75,0.25); }
+.status-inforce { background: rgba(45,212,191,0.12); color: var(--teal); border: 1px solid rgba(45,212,191,0.3); }
+.status-letter { background: rgba(249,115,22,0.12); color: #f97316; border: 1px solid rgba(249,115,22,0.3); }
+
+.hr { height:1px; background: linear-gradient(90deg, transparent, var(--border), transparent); margin: 2rem 0; }
+footer { background: rgba(0,0,0,0.5); border-top: 1px solid var(--border); padding: 3rem 2rem; text-align: center; }
+footer h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; margin-bottom: 0.5rem; }
+footer p { font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.12em; color: var(--faint); margin-top: 0.5rem; }
+
+@keyframes rise { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:translateY(0); } }
+@keyframes bounce { 0%,100% { opacity:0.3; transform: translateX(-50%) translateY(0); } 50% { opacity:0.6; transform: translateX(-50%) translateY(6px); } }
+@media(max-width:768px) { .chart-2col, .chart-3col { grid-template-columns: 1fr; } .hero-kpis { gap: 1.5rem; } }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-noise"></div>
+  <div class="dot-grid"></div>
+  <div class="hero-eyebrow">Public International Law · Treaty Analysis · 2025–26</div>
+  <h1><span class="ind">India</span>–<span class="uae">UAE</span><br>Treaty Architecture</h1>
+  <p class="hero-sub">From ancient dhow trade routes to a $100 billion CEPA and a $200 billion trade target by 2032 — a data-driven analysis of how India and the UAE built the most comprehensive, most institutionally dense bilateral partnership in all of West Asia.</p>
+  <div class="hero-flags">
+    <span class="flag-pill flag-ind">🇮🇳 India</span>
+    <span class="vs">—</span>
+    <span class="flag-pill flag-uae">🇦🇪 UAE</span>
+  </div>
+  <div class="hero-kpis">
+    <div class="kpi"><span class="kpi-val" style="color:var(--uae)">1972</span><span class="kpi-lbl">Diplomatic Relations</span></div>
+    <div class="kpi"><span class="kpi-val" style="color:var(--gold)">100+</span><span class="kpi-lbl">MoUs & Agreements</span></div>
+    <div class="kpi"><span class="kpi-val" style="color:var(--teal)">$100B</span><span class="kpi-lbl">Non-Oil Trade FY25</span></div>
+    <div class="kpi"><span class="kpi-val" style="color:var(--india)">4.3M</span><span class="kpi-lbl">Indian Diaspora in UAE</span></div>
+    <div class="kpi"><span class="kpi-val" style="color:#a78bfa">2022</span><span class="kpi-lbl">CEPA — India's 1st Gulf FTA</span></div>
+  </div>
+  <div class="scroll-down">↓ SCROLL</div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-brand">India–UAE Treaty Watch</span>
+  <a href="#timeline">Timeline</a>
+  <a href="#bilateral">Key Agreements</a>
+  <a href="#cepa">CEPA Deep-Dive</a>
+  <a href="#charts">Data Analysis</a>
+  <a href="#defence">Defence</a>
+  <a href="#alignment">PIL Analysis</a>
+</nav>
+
+<!-- SECTION 1: TIMELINE -->
+<div class="wrap" id="timeline">
+  <div class="section-eyebrow">Section 01 — Historical Record</div>
+  <h2 class="section-title">India–UAE Treaty Timeline: 1972–2026</h2>
+  <p class="section-body">India–UAE's modern treaty relationship ignited under PM Modi after 2014 and has accelerated at a pace unprecedented in any India bilateral. The 2022 CEPA (negotiated in 88 days), the 2017 Comprehensive Strategic Partnership, the I2U2 grouping, and the 2026 Defence Partnership Letter of Intent — all mark a relationship redefining itself in real time. Filter below.</p>
+
+  <div class="era-btns">
+    <button class="era-btn active" onclick="filterTL('all',this)">All Eras</button>
+    <button class="era-btn" onclick="filterTL('early',this)">Foundation 1972–2013</button>
+    <button class="era-btn" onclick="filterTL('modi',this)">Modi Revolution 2014–2021</button>
+    <button class="era-btn" onclick="filterTL('cepa',this)">CEPA Era 2022–2024</button>
+    <button class="era-btn" onclick="filterTL('new',this)">$200B Era 2025–2026</button>
+  </div>
+
+  <div class="type-btns">
+    <button class="type-btn active" data-t="all" onclick="filterType('all',this)">All Types</button>
+    <button class="type-btn" data-t="strategic" onclick="filterType('strategic',this)">Strategic</button>
+    <button class="type-btn" data-t="trade" onclick="filterType('trade',this)">Trade</button>
+    <button class="type-btn" data-t="military" onclick="filterType('military',this)">Defence</button>
+    <button class="type-btn" data-t="digital" onclick="filterType('digital',this)">Digital</button>
+    <button class="type-btn" data-t="cultural" onclick="filterType('cultural',this)">Cultural</button>
+    <button class="type-btn" data-t="energy" onclick="filterType('energy',this)">Energy</button>
+  </div>
+
+  <div class="tl-wrap" id="tl-container"></div>
+</div>
+
+<!-- SECTION 2: KEY AGREEMENTS -->
+<div class="stripe">
+<div class="wrap" id="bilateral">
+  <div class="section-eyebrow orange">Section 02 — Full Agreement Register</div>
+  <h2 class="section-title">India–UAE Agreements: The Most Comprehensive Gulf Portfolio</h2>
+  <p class="section-body">India–UAE has the deepest, broadest, and most rapidly expanding bilateral agreement framework of any India–Gulf relationship. From the 1975 Cultural Agreement to the 2026 Defence Partnership Letter of Intent, the portfolio spans every conceivable domain of state-to-state cooperation.</p>
+
+  <table class="cmp-table">
+    <thead>
+      <tr><th>Treaty / Agreement</th><th>Year</th><th>Type</th><th>Status</th><th>Significance</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Cultural Cooperation Agreement</strong></td><td>1975</td><td>Cultural</td><td><span class="status-pill status-active">Active</span></td><td>First formal bilateral agreement; covers art, culture, education, S&T, sports, public health, mass media; foundation of people-to-people ties</td></tr>
+      <tr><td><strong>Defence Cooperation Agreement</strong></td><td>2003</td><td>Military</td><td><span class="status-pill status-active">Active (in force 2004)</span></td><td>Foundational defence agreement; steered by Joint Defence Cooperation Committee (JDCC); 13th JDCC held July 2025 at Secretary level — first time at that level</td></tr>
+      <tr><td><strong>Bilateral Investment Treaty (BIT)</strong></td><td>2013</td><td>Investment</td><td><span class="status-pill status-active">Active</span></td><td>Provides legal protection for bilateral investments; UAE FDI in India ~$22B (Apr 2000–Sep 2024); UAE committed $75B in Indian infrastructure</td></tr>
+      <tr><td><strong>Comprehensive Strategic Partnership Agreement</strong></td><td>2017</td><td>Strategic</td><td><span class="status-pill status-active">Active</span></td><td>Most significant pre-CEPA bilateral upgrade. Elevated ties to highest level. PM Modi awarded Order of Zayed (UAE's highest civilian honour) in 2019.</td></tr>
+      <tr><td><strong>MoU on Rail Sector Technical Cooperation</strong></td><td>2018</td><td>Trade</td><td><span class="status-pill status-active">Active</span></td><td>India–UAE railway cooperation; platform for Indian Railways technology transfer</td></tr>
+      <tr><td><strong>ISRO–UAE Space Agency MoU</strong></td><td>2016</td><td>Science</td><td><span class="status-pill status-active">Active</span></td><td>Outer space cooperation for peaceful purposes; UAE's Mars mission used Indian launch data; space sector deepened under 2026 visit</td></tr>
+      <tr><td><strong>Cybersecurity Cooperation MoU</strong></td><td>2016</td><td>Digital</td><td><span class="status-pill status-active">Active</span></td><td>Bilateral cyber threat intelligence sharing; collaboration on advanced technologies; digital infrastructure protection</td></tr>
+      <tr><td><strong>MoU on Civil Nuclear Cooperation</strong></td><td>2024</td><td>Energy</td><td><span class="status-pill status-inforce">Active (2024)</span></td><td>Upgraded from 2015 "peaceful use" agreement; covers Small Modular Reactors (SMRs); follows India's SHANTI Law 2025; landmark nuclear partnership</td></tr>
+      <tr><td><strong>Comprehensive Economic Partnership Agreement (CEPA)</strong></td><td>2022</td><td>Trade</td><td><span class="status-pill status-inforce">In Force 1 May 2022</span></td><td>Negotiated in record 88 days. India's first Gulf FTA. UAE eliminates duties on 97.4% of tariff lines (99% of Indian exports by value). India eliminates on 80%+. Covers 11 service sectors, 100+ sub-sectors. Digital trade chapter — India's first in any FTA.</td></tr>
+      <tr><td><strong>Local Currency Settlement MoU (INR–AED)</strong></td><td>2023</td><td>Digital</td><td><span class="status-pill status-inforce">Active (Jul 2023)</span></td><td>Enables India–UAE trade in Indian Rupee and UAE Dirham, reducing dollar dependence. UPI and RuPay card systems now operational in UAE for 4.3M Indian expats.</td></tr>
+      <tr><td><strong>Green Hydrogen MoU</strong></td><td>2023</td><td>Energy</td><td><span class="status-pill status-active">Active (Jan 2023)</span></td><td>Cooperation and investments in green hydrogen production; UAE joined Global Biofuels Alliance (India-led) as founding member at G20 2023</td></tr>
+      <tr><td><strong>I2U2 Framework (India–Israel–UAE–USA)</strong></td><td>2022</td><td>Strategic</td><td><span class="status-pill status-active">Active</span></td><td>Quadrilateral grouping focused on infrastructure, clean energy, food security, and technology. UAE's Abraham Accords enabled India-UAE-Israel trilateral engagement.</td></tr>
+      <tr><td><strong>IMEC — India-Middle East-Europe Economic Corridor</strong></td><td>2023</td><td>Strategic</td><td><span class="status-pill status-active">Active (G20 2023)</span></td><td>MoU signed at G20 Summit; India, UAE, Saudi Arabia, EU, USA. UAE is the pivot node connecting India to Europe. Transforms trade connectivity architecture.</td></tr>
+      <tr><td><strong>IIT Delhi Abu Dhabi Campus Agreement</strong></td><td>2022</td><td>Cultural</td><td><span class="status-pill status-inforce">Active (Sept 2024)</span></td><td>First overseas IIT; inaugurated September 2024 in Abu Dhabi. IIM Ahmedabad Dubai campus: Sept 2025. IIFT Expo City Dubai MoU: Oct 2024. India's academic presence in UAE institutionalised.</td></tr>
+      <tr><td><strong>MoU on APEDA–UAE Ministry (Agri Export)</strong></td><td>2026</td><td>Trade</td><td><span class="status-pill status-signed">Signed Jan 2026</span></td><td>Streamlines food safety standards for Indian rice and agricultural produce exports to UAE; signed during MbZ's Jan 2026 India visit</td></tr>
+      <tr><td><strong>ADNOC Gas–Hindustan Petroleum Corporation MoU</strong></td><td>2026</td><td>Energy</td><td><span class="status-pill status-signed">Signed Jan 2026</span></td><td>LNG supply deal: $3B contract signed during MbZ's Jan 2026 India visit. UAE becomes India's 2nd largest LNG source.</td></tr>
+      <tr><td><strong>C-DAC–G42 Supercomputing MoU</strong></td><td>2026</td><td>Digital</td><td><span class="status-pill status-signed">Signed Jan 2026</span></td><td>Supercomputing cluster to be established in India under the AI India Mission; India-UAE AI partnership formalised through tech institutions</td></tr>
+      <tr><td><strong>Defence Partnership — Letter of Intent</strong></td><td>2026</td><td>Military</td><td><span class="status-pill status-letter">LoI Signed Jan 2026</span></td><td>Landmark Letter of Intent for Strategic Defence Partnership signed during MbZ's Jan 2026 New Delhi visit. Covers joint exercises, technology transfer, drone and surveillance cooperation. Signals defence treaty upgrade.</td></tr>
+      <tr><td><strong>Coast Guard–UAE National Guard MoU (Maritime)</strong></td><td>2025</td><td>Military</td><td><span class="status-pill status-inforce">Active (Jul 2025)</span></td><td>Signed at 13th JDCC; covers SAR, anti-piracy, pollution response, real-time information sharing in Indian Ocean Region. First maritime security MoU between the two.</td></tr>
+      <tr><td><strong>$200B Trade Target Agreement</strong></td><td>2026</td><td>Trade</td><td><span class="status-pill status-signed">Committed Jan 2026</span></td><td>Both leaders agree to double bilateral trade from $100B to $200B by 2032 — the most ambitious bilateral trade target in any India relationship globally</td></tr>
+    </tbody>
+  </table>
+
+  <div class="quote-box">
+    <div class="quote-label">Scale of Ambition — January 2026</div>
+    <p class="quote-text">"The India–UAE relationship has moved faster in the decade 2014–2026 than in the preceding 40 years. The $200B trade target, the Defence LoI, and the nuclear cooperation MoU signed in January 2026 represent a trifecta of commercial, security, and technological ambition that exceeds almost any other bilateral India has. The CEPA's achievement of $100B in non-oil trade by 2025 — a year ahead of schedule — validates this ambition."</p>
+  </div>
+</div>
+</div>
+
+<!-- SECTION 3: CEPA DEEP-DIVE -->
+<div class="wrap" id="cepa">
+  <div class="section-eyebrow teal">Section 03 — CEPA: India's Most Successful FTA</div>
+  <h2 class="section-title">The CEPA: 88 Days to History</h2>
+  <p class="section-body">The India–UAE CEPA was negotiated in just 88 days — the fastest comprehensive FTA India has ever concluded. Signed February 18, 2022, in force May 1, 2022. Three years in, it is India's single most successful trade agreement: non-oil trade hit $100B in FY25, a year ahead of the 5-year target.</p>
+
+  <div class="impact-grid">
+    <div class="impact-card"><div class="badge badge-critical">Coverage</div><div class="impact-icon">📋</div><div class="impact-title">97.4% UAE Tariff Lines Duty-Free</div><div class="impact-body">UAE eliminates duties on 97.4% of tariff lines covering 99% of Indian exports by value. India offers duty elimination on 80%+ of tariff lines. Near-universal free trade for India — no other partner offers this breadth.</div></div>
+    <div class="impact-card"><div class="badge badge-high">Services</div><div class="impact-icon">💼</div><div class="impact-title">11 Service Sectors, 100+ Sub-Sectors</div><div class="impact-body">The most comprehensive services chapter in any India FTA. UAE offers 111 service sub-sectors to India; India offers 100 to UAE. Covers IT, professional services, financial services, education, healthcare, telecom, and construction.</div></div>
+    <div class="impact-card"><div class="badge badge-teal">Digital</div><div class="impact-icon">💻</div><div class="impact-title">First-Ever Digital Trade Chapter</div><div class="impact-body">India's first-ever digital trade chapter in any FTA — covering e-commerce, electronic payments, cross-border data flows, and digital identity. Pioneering for India's FTA ambitions; sets the template for future agreements.</div></div>
+    <div class="impact-card"><div class="badge badge-med">Pharma</div><div class="impact-icon">💊</div><div class="impact-title">90-Day Pharma Fast-Track</div><div class="impact-body">CEPA includes a dedicated pharma annex allowing Indian drugs approved by recognised authorities to access UAE market within 90 days. Boosts India's pharmaceutical exports — one of the biggest non-oil beneficiaries.</div></div>
+    <div class="impact-card"><div class="badge badge-critical">Result</div><div class="impact-icon">📈</div><div class="impact-title">$100B Non-Oil Trade — Target Hit Early</div><div class="impact-body">Non-oil bilateral trade reached $100B in FY 2024–25 — a year ahead of the 5-year CEPA target. Total bilateral trade (including oil) was $100B+ in FY24. The fastest trade transformation India has achieved with any partner.</div></div>
+    <div class="impact-card"><div class="badge badge-high">Gateway</div><div class="impact-icon">🌐</div><div class="impact-title">UAE as Africa + Europe Gateway</div><div class="impact-body">UAE's position under GAFTA (Great Arab Free Trade Area) gives India CEPA-backed access to 14 Arab countries. UAE's connectivity to Africa and Europe means the CEPA's real value exceeds the bilateral — it is a regional gateway agreement.</div></div>
+  </div>
+
+  <div class="quote-box teal-border">
+    <div class="quote-label teal">CEPA — PIL Classification</div>
+    <p class="quote-text">"The India–UAE CEPA is a comprehensive preferential trade agreement under WTO GATT Article XXIV — legally the most binding and institutionally the most structured trade instrument India has signed since the 2010 ASEAN CECA. Unlike India's earlier BITs (which India terminated en masse), the CEPA contains binding WTO-compatible dispute resolution. It also establishes a Joint Committee, Trade in Goods Committee, Services Sub-Committee, and Rules of Origin Committee — creating a permanent treaty governance architecture rather than a one-time agreement."</p>
+  </div>
+</div>
+
+<!-- SECTION 4: DATA CHARTS -->
+<div class="stripe">
+<div class="wrap" id="charts">
+  <div class="section-eyebrow gold">Section 04 — Data Analysis</div>
+  <h2 class="section-title">The Numbers Behind the Partnership</h2>
+  <p class="section-body">India–UAE is India's #3 global trade partner, #2 export destination, and the source of 3.1% of all FDI inflows (Apr 2000–Sep 2024). 240,000+ Certificates of Origin have been issued under the CEPA. 4.3 million Indians — the world's largest Indian diaspora in a single country — remit over $19B annually.</p>
+
+  <div class="chart-2col">
+    <div class="chart-card">
+      <div class="chart-title">Bilateral Trade Trajectory (USD Billion)</div>
+      <div class="chart-sub">Pre-CEPA vs Post-CEPA growth — 2018 to 2026 projection</div>
+      <canvas id="tradeChart"></canvas>
+    </div>
+    <div class="chart-card orange-top">
+      <div class="chart-title">Treaty Portfolio by Category</div>
+      <div class="chart-sub">India–UAE agreements — sector distribution</div>
+      <canvas id="typeChart"></canvas>
+    </div>
+  </div>
+  <div class="chart-2col">
+    <div class="chart-card gold-top">
+      <div class="chart-title">CEPA Impact: Non-Oil Trade Surge</div>
+      <div class="chart-sub">USD Billion — Pre vs Post CEPA (May 2022 in force)</div>
+      <canvas id="cepaChart"></canvas>
+    </div>
+    <div class="chart-card teal-top">
+      <div class="chart-title">UAE Investment in India (Cumulative)</div>
+      <div class="chart-sub">FDI equity inflows (USD Billion, Apr 2000 onwards)</div>
+      <canvas id="fdiChart"></canvas>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- SECTION 5: DEFENCE -->
+<div class="wrap" id="defence">
+  <div class="section-eyebrow danger">Section 05 — Defence: The New Frontier</div>
+  <h2 class="section-title">From Exercises to Strategic Defence Partnership</h2>
+  <p class="section-body">India–UAE defence ties have moved from basic training cooperation (early 2000s) to joint exercises, counter-terrorism coordination, and — as of January 2026 — a formal Strategic Defence Partnership Letter of Intent. The 13th JDCC in July 2025 was held at Secretary level for the first time, signalling a step-change in strategic weight.</p>
+
+  <div class="impact-grid">
+    <div class="impact-card"><div class="badge badge-defence">Army</div><div class="impact-icon">⚔️</div><div class="impact-title">Exercise Desert Cyclone</div><div class="impact-body">First bilateral army exercise between India and UAE — held Rajasthan, January 2024 (Desert Cyclone-I). Desert Cyclone-II held in UAE, December 2025. Marks army-level military interoperability as a new pillar of bilateral defence cooperation.</div></div>
+    <div class="impact-card"><div class="badge badge-defence">Air Force</div><div class="impact-icon">✈️</div><div class="impact-title">Desert Knight & Desert Flag</div><div class="impact-body">Desert Knight: First trilateral India–UAE–France air exercise (UAE, Jan 2024). Desert Flag: India's largest IAF contingent (with 11 other air forces) participated in April–May 2025. IAF also participated in multilateral Tarang Shakti and MILAN exercises.</div></div>
+    <div class="impact-card"><div class="badge badge-defence">Navy</div><div class="impact-icon">⚓</div><div class="impact-title">Gulf Waves Naval Exercise</div><div class="impact-body">Bilateral Naval Exercise Gulf Waves conducted October 2024. Indian Coast Guard–UAE National Guard MoU on maritime security signed July 2025 at 13th JDCC. Covers SAR, anti-piracy, pollution response, and real-time Indian Ocean intelligence sharing.</div></div>
+    <div class="impact-card"><div class="badge badge-critical">Landmark</div><div class="impact-icon">🤝</div><div class="impact-title">Defence Partnership — Letter of Intent (2026)</div><div class="impact-body">Historic LoI signed during UAE President MbZ's January 2026 visit to New Delhi. Covers joint training, technology transfer, drone and surveillance technologies, and defence interoperability. Precursor to a formal bilateral defence treaty — India's first in the Gulf.</div></div>
+    <div class="impact-card"><div class="badge badge-teal">Counter-Terror</div><div class="impact-icon">🛡️</div><div class="impact-title">Joint Counter-Terrorism Operations</div><div class="impact-body">December 2020: India and UAE jointly foiled a Pakistani ISI-backed Khalistani–Hizbul Mujahideen attack in Delhi. Cell head arrested in UAE and deported to India. Real-time intelligence sharing between India's agencies and UAE has been operationally consequential.</div></div>
+    <div class="impact-card"><div class="badge badge-high">13th JDCC</div><div class="impact-icon">🏛️</div><div class="impact-title">Joint Defence Cooperation Committee</div><div class="impact-body">13th JDCC held July 2025 in New Delhi — first ever at Secretary level (India's Defence Secretary + UAE Under Secretary Lt Gen Ibrahim Al Alawi). Expanded into maritime, customised training, and advanced defence technology co-development domains.</div></div>
+  </div>
+
+  <div class="quote-box danger-border">
+    <div class="quote-label danger">Geopolitical Context — Why Defence Now?</div>
+    <p class="quote-text">"India's defence partnership with UAE accelerates precisely as Pakistan's military footprint in the Gulf expands. Pakistan signed the Saudi–Pakistan Strategic Mutual Defence Agreement in September 2025; Islamabad is now involved in Gaza stabilisation forces and Yemeni conflict architecture. India's Defence LoI with UAE is a direct strategic counterweight — positioning India as the Gulf's preferred democratic defence partner against Pakistan's growing military-commercial presence."</p>
+  </div>
+</div>
+
+<!-- SECTION 6: PIL ALIGNMENT -->
+<div class="stripe">
+<div class="wrap" id="alignment">
+  <div class="section-eyebrow gold">Section 06 — PIL Alignment Analysis</div>
+  <h2 class="section-title">India–UAE: Rewriting Gulf Treaty Architecture</h2>
+  <p class="section-body">India–UAE is the only Gulf bilateral where India has simultaneously achieved a binding FTA (CEPA), a Comprehensive Strategic Partnership, active multilateral frameworks (I2U2, IMEC, BRICS), a defence cooperation committee at Secretary level, nuclear cooperation MoU, digital payments integration (UPI/RuPay), and a $200B trade target. No other Gulf bilateral comes close.</p>
+
+  <div class="align-grid" id="align-grid"></div>
+
+  <div class="hr"></div>
+
+  <div class="chart-3col">
+    <div class="chart-card">
+      <div class="chart-title">India–UAE Treaty Depth Radar</div>
+      <div class="chart-sub">Across 7 key domains vs India–Gulf average</div>
+      <canvas id="pilRadar"></canvas>
+    </div>
+    <div class="chart-card orange-top">
+      <div class="chart-title">MoUs Signed Per Major Summit</div>
+      <div class="chart-sub">Agreement velocity — 2015 to 2026</div>
+      <canvas id="speedChart"></canvas>
+    </div>
+    <div class="chart-card gold-top">
+      <div class="chart-title">Hard Law vs Soft Law Balance</div>
+      <div class="chart-sub">Binding treaties vs MoUs (India–UAE portfolio)</div>
+      <canvas id="lawChart"></canvas>
+    </div>
+  </div>
+
+  <div class="quote-box gold-border">
+    <div class="quote-label gold">Final PIL Conclusion — A New Model of Gulf Bilateralism</div>
+    <p class="quote-text">"India–UAE represents the most complete bilateral treaty architecture India has constructed with any Gulf state — and arguably with any developing-world partner. The CEPA provides hard-law trade obligations; the Comprehensive Strategic Partnership provides political-diplomatic governance; the JDCC and Defence LoI provide security scaffolding; the I2U2 and IMEC provide multilateral embeddedness; the UPI/RuPay integration provides financial architecture; and the IIT/IIM campuses provide knowledge-economy anchoring. This is not one treaty — it is a treaty ecosystem, designed to be self-reinforcing. In PIL terms, the India–UAE model has moved beyond state consent to treaty obligation toward something more durable: institutional lock-in."</p>
+  </div>
+</div>
+</div>
+
+<footer>
+  <h3>India–UAE Treaty Architecture — Public International Law Analysis</h3>
+  <p>Sources: MEA India · Embassy of India UAE · Al-Monitor · The Diplomat · UNCTAD · Wikipedia · PIB India · Gulf News · ELP Law · Deloitte Middle East</p>
+  <p style="margin-top:0.5rem;">Data as of April 2026 · Created for Public International Law Research</p>
+</footer>
+
+<script>
+Chart.defaults.color = 'rgba(240,237,230,0.55)';
+Chart.defaults.borderColor = 'rgba(255,255,255,0.07)';
+Chart.defaults.font.family = "'DM Sans', sans-serif";
+const gridColor = 'rgba(255,255,255,0.06)';
+
+const TL = [
+  { year:1972, era:'early', type:'strategic', dotClass:'', yearClass:'', title:'Diplomatic Relations Established', desc:'India and UAE establish full diplomatic relations. The Indian community — many from Kerala and Gujarat — has been present in the UAE since the 1960s oil boom. The Indian Rupee was informally used in Gulf trade before the UAE Dirham was introduced in 1973.' },
+  { year:1975, era:'early', type:'cultural', dotClass:'purple', yearClass:'purple', title:'Cultural Cooperation Agreement — First Treaty', desc:'India and UAE sign their first formal bilateral agreement on cultural cooperation — covering art, culture, education, science and technology, sports, public health, and mass media. Foundation for all subsequent people-to-people ties; 3M+ Indians already in UAE.' },
+  { year:2003, era:'early', type:'military', dotClass:'danger', yearClass:'danger', title:'Defence Cooperation Agreement', desc:'India and UAE sign the foundational Defence Cooperation Agreement, which comes into force in 2004. Steered through the Joint Defence Cooperation Committee (JDCC). Marks the beginning of a structured military relationship beyond informal cooperation.' },
+  { year:2013, era:'early', type:'trade', dotClass:'gold', yearClass:'gold', title:'Bilateral Investment Treaty (BIT)', desc:'India and UAE sign the BIT providing legal protection for bilateral investments. Unlike most India BITs which were terminated after 2015 reform, the India-UAE BIT remains in force alongside the CEPA — demonstrating UAE\'s special status in India\'s investment treaty architecture.' },
+  { year:2015, era:'modi', type:'strategic', dotClass:'', yearClass:'', title:'PM Modi\'s First UAE Visit — 34-Year Gap Broken', desc:'PM Modi visits UAE in August 2015 — first Indian PM visit in 34 years. A historic turning point. He addresses 50,000 Indians at Dubai Cricket Stadium. Framework Agreement on strategic partnership initiated. ISRO-UAE Space Agency MoU signed 2016 on follow-up.' },
+  { year:2016, era:'modi', type:'digital', dotClass:'teal', yearClass:'teal', title:'Cybersecurity & Space MoUs', desc:'India and UAE sign Cybersecurity Cooperation MoU and ISRO–UAE Space Agency MoU for peaceful outer space exploration. Begins India\'s technology-sharing agenda with UAE — later expanded to AI, supercomputing, and nuclear in 2024–26.' },
+  { year:2017, era:'modi', type:'strategic', dotClass:'', yearClass:'', title:'Comprehensive Strategic Partnership Declared', desc:'India and UAE elevate ties to Comprehensive Strategic Partnership. The most significant upgrade since diplomatic relations began. Creates a framework for cooperation across all domains — trade, defence, energy, digital, cultural. UAE President visits India twice in 2017.' },
+  { year:2018, era:'modi', type:'strategic', dotClass:'', yearClass:'', title:'PM Modi\'s Second UAE Visit — Rail MoU + Kerala Floods', desc:'PM Modi visits UAE. Railway technical cooperation MoU signed. UAE Crown Prince personally calls PM Modi after Kerala floods — Sheikh Mohammed\`s humanitarian gesture reinforces people-level solidarity. Order of Zayed conferred on PM Modi in Aug 2019.' },
+  { year:2020, era:'modi', type:'military', dotClass:'danger', yearClass:'danger', title:'Counter-Terror Operation — ISI Attack Foiled', desc:'India and UAE jointly foil a Pakistani ISI-backed Khalistani–Hizbul Mujahideen terrorist attack planned for Delhi. Cell head arrested in UAE and deported. Real-time intelligence cooperation proves operationally effective. Deep security alignment demonstrated.' },
+  { year:2022, era:'cepa', type:'trade', dotClass:'gold', yearClass:'gold', title:'CEPA Signed — 88 Days, India\'s First Gulf FTA', desc:'Comprehensive Economic Partnership Agreement signed February 18, 2022 during virtual summit between PM Modi and UAE President MbZ. Negotiated in record 88 days. In force May 1, 2022. UAE eliminates duties on 97.4% of tariff lines. First overseas IIT proposed. Digital trade chapter — a first for India.' },
+  { year:2022, era:'cepa', type:'strategic', dotClass:'', yearClass:'', title:'I2U2 Grouping — India–Israel–UAE–USA', desc:'India, Israel, UAE, and USA launch I2U2 quadrilateral group — focused on infrastructure, clean energy, food security, and technology. UAE\'s Abraham Accords (2020) created the Israel bridge enabling this innovative grouping. India is the only non-Western power.' },
+  { year:2023, era:'cepa', type:'digital', dotClass:'teal', yearClass:'teal', title:'UPI/RuPay in UAE + Local Currency Settlement', desc:'India\'s UPI and RuPay systems go live in UAE — serving 4.3M Indian expats. Local Currency Settlement MoU signed July 2023 enabling INR-AED trade without dollar intermediation. 240,000+ Certificates of Origin issued under CEPA by 2025.' },
+  { year:2023, era:'cepa', type:'energy', dotClass:'orange', yearClass:'orange', title:'Green Hydrogen MoU + IMEC at G20', desc:'Green Hydrogen cooperation MoU signed January 2023. India-Middle East-Europe Economic Corridor (IMEC) MoU signed at G20 Summit — UAE is the Gulf pivot. UAE joins Global Biofuels Alliance as founding member. UAE also joins BRICS in 2023.' },
+  { year:2023, era:'cepa', type:'cultural', dotClass:'purple', yearClass:'purple', title:'BAPS Mandir Inaugurated — Largest Hindu Temple in Gulf', desc:'PM Modi inaugurates BAPS Swaminarayan Mandir in Abu Dhabi on February 14, 2024. Largest Hindu temple in the Gulf. Built on land gifted by UAE government. Symbol of religious tolerance and bilateral civilizational harmony cited by both governments.' },
+  { year:2024, era:'cepa', type:'military', dotClass:'danger', yearClass:'danger', title:'Desert Cyclone + Desert Knight + 13th JDCC', desc:'First bilateral army exercise Desert Cyclone-I (Rajasthan, Jan 2024). Desert Knight first trilateral air exercise India-UAE-France (Jan 2024). 13th JDCC held July 2025 at Secretary level — first time. Maritime security MoU signed. Gulf Waves naval exercise Oct 2024.' },
+  { year:2024, era:'cepa', type:'cultural', dotClass:'purple', yearClass:'purple', title:'IIT Delhi Abu Dhabi Inaugurated', desc:'IIT Delhi\'s Abu Dhabi campus inaugurated September 2024 — first IIT outside India. IIM Ahmedabad Dubai campus: September 2025. IIFT MoU at Expo City Dubai: October 2024. Bharat Mart inauguration at Jebel Ali. India\'s academic footprint in UAE fully institutionalised.' },
+  { year:2025, era:'new', type:'trade', dotClass:'gold', yearClass:'gold', title:'$100B Non-Oil Trade Target Hit — 1 Year Early', desc:'Non-oil bilateral trade reaches $100B in FY 2024–25 — a full year ahead of CEPA\'s 5-year target. Total bilateral trade (including oil): $100B+. India\'s exports to UAE: $37B. Imports from UAE to India: $63B. The CEPA is India\'s most commercially successful FTA.' },
+  { year:2026, era:'new', type:'strategic', dotClass:'', yearClass:'', title:'UAE President MbZ Visits India — Defence LoI + $200B Target', desc:'UAE President MbZ visits New Delhi January 19, 2026. Defence Partnership Letter of Intent signed. $3B ADNOC–HPCL LNG deal. C-DAC–G42 AI supercomputing cluster. APEDA food safety MoU. $200B trade target by 2032 agreed. 16th Joint Commission + 5th Strategic Dialogue held Abu Dhabi December 2025.' },
+];
+
+let eraFilter = 'all', typeFilter = 'all';
+function renderTL() {
+  const c = document.getElementById('tl-container');
+  const filtered = TL.filter(d => (eraFilter === 'all' || d.era === eraFilter) && (typeFilter === 'all' || d.type === typeFilter));
+  c.innerHTML = filtered.map((d,i) => `<div class="tl-item" style="transition-delay:${i*0.04}s"><div class="tl-dot ${d.dotClass}"></div><div class="tl-year ${d.yearClass}">${d.year}</div><div class="tl-title">${d.title}</div><div class="tl-desc">${d.desc}</div><span class="tl-tag tag-${d.type}">${d.type}</span></div>`).join('');
+  setTimeout(() => document.querySelectorAll('.tl-item').forEach(el => el.classList.add('visible')), 60);
+}
+function filterTL(era, btn) { eraFilter = era; document.querySelectorAll('.era-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); renderTL(); }
+function filterType(type, btn) { typeFilter = type; document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); renderTL(); }
+renderTL();
+
+new Chart(document.getElementById('tradeChart'), {
+  type: 'line',
+  data: {
+    labels: ['FY18','FY19','FY20','FY21','FY22','FY23','FY24','FY25','FY26P'],
+    datasets: [
+      { label: 'Total Bilateral Trade', data:[48, 53, 41, 43, 73, 85, 83.7, 100, 120], borderColor: '#00732F', backgroundColor: 'rgba(0,115,47,0.1)', fill:true, tension:0.4, pointRadius:4 },
+      { label: 'Non-Oil Trade', data:[30, 33, 27, 28, 50.5, 57.8, 62, 100, 112], borderColor: '#2DD4BF', backgroundColor: 'rgba(45,212,191,0.06)', fill:true, tension:0.4, pointRadius:4 },
+      { label: 'India Exports to UAE', data:[18, 20, 15, 16, 28, 31.3, 27.4, 37, 45], borderColor: '#FF6B1A', fill:false, tension:0.4, pointRadius:3 },
+    ]
+  },
+  options: {
+    responsive:true, interaction:{ mode:'index', intersect:false },
+    plugins: { legend:{ labels:{ boxWidth:10, padding:18 } },
+    annotation: {} },
+    scales: { x:{ grid:{ color:gridColor } }, y:{ grid:{ color:gridColor }, beginAtZero:true, title:{ display:true, text:'USD Billion' } } }
+  }
+});
+
+new Chart(document.getElementById('typeChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Trade / CEPA','Strategic / Political','Defence / Military','Digital / Technology','Cultural / Education','Energy / Clean','Legal / Finance'],
+    datasets: [{ data:[25, 18, 15, 14, 12, 10, 6], backgroundColor:['#E8B84B','#00732F','#e63946','#2DD4BF','#a78bfa','#f97316','#3b82f6'], borderWidth:0 }]
+  },
+  options: { cutout:'62%', plugins:{ legend:{ position:'bottom', labels:{ boxWidth:10, padding:12, font:{size:11} } } } }
+});
+
+new Chart(document.getElementById('cepaChart'), {
+  type: 'bar',
+  data: {
+    labels: ['May21–Mar22\n(Pre-CEPA)', 'May22–Mar23\n(Year 1)', 'FY23-24\n(Year 2)', 'FY24-25\n(Year 3)'],
+    datasets: [
+      { label: 'Total Trade (USD Bn)', data:[67.5, 76.9, 83.7, 100], backgroundColor: 'rgba(0,115,47,0.7)', borderRadius:3 },
+      { label: 'Non-Oil Trade (USD Bn)', data:[38, 50.5, 57.8, 100], backgroundColor: 'rgba(45,212,191,0.6)', borderRadius:3 },
+    ]
+  },
+  options: { responsive:true, plugins:{ legend:{ labels:{ boxWidth:10 } } }, scales: { x:{ grid:{ display:false } }, y:{ grid:{ color:gridColor }, beginAtZero:true } } }
+});
+
+new Chart(document.getElementById('fdiChart'), {
+  type: 'line',
+  data: {
+    labels: ['2005','2010','2015','2018','2020','2022','2024'],
+    datasets: [
+      { label: 'UAE FDI in India (Cumulative USD Bn)', data:[0.5, 2.1, 5.8, 11, 15.5, 18.5, 22], borderColor: '#00732F', backgroundColor: 'rgba(0,115,47,0.1)', fill:true, tension:0.4, pointRadius:4 },
+      { label: 'UAE Infrastructure Commitment (USD Bn)', data:[0, 0, 0, 0, 20, 55, 75], borderColor: '#E8B84B', backgroundColor: 'rgba(232,184,75,0.06)', fill:true, tension:0.4, pointRadius:4 },
+    ]
+  },
+  options: { responsive:true, interaction:{ mode:'index', intersect:false }, plugins:{ legend:{ labels:{ boxWidth:10, padding:18 } } }, scales: { x:{ grid:{ color:gridColor } }, y:{ grid:{ color:gridColor }, beginAtZero:true } } }
+});
+
+const alignData = [
+  { country:'🇮🇳 India', score:88, color:'#FF6B1A', label:'Comprehensive multilateralist' },
+  { country:'🇦🇪 UAE', score:82, color:'#00732F', label:'Trade-first globalist' },
+  { country:'🇸🇦 Saudi Arabia', score:62, color:'#E8B84B', label:'Strategic bilateral' },
+  { country:'🇨🇳 China', score:70, color:'#e63946', label:'Functionalist' },
+  { country:'🇺🇸 USA', score:75, color:'#3b82f6', label:'Rules-based partner' },
+  { country:'🇮🇱 Israel', score:65, color:'#a78bfa', label:'Tech & security align' },
+];
+const ag = document.getElementById('align-grid');
+alignData.forEach(d => { ag.innerHTML += `<div class="align-card"><div class="align-country">${d.country}</div><span class="align-score" style="color:${d.color}">${d.score}%</span><div class="bar-outer"><div class="bar-inner" data-w="${d.score}" style="background:${d.color}"></div></div><div class="align-label">${d.label}</div></div>`; });
+setTimeout(() => document.querySelectorAll('.bar-inner').forEach(b => b.style.width = b.dataset.w + '%'), 600);
+
+new Chart(document.getElementById('pilRadar'), {
+  type: 'radar',
+  data: {
+    labels: ['Trade/CEPA','Defence','Digital','Energy','Cultural','Investment','Strategic'],
+    datasets: [
+      { label: 'India–UAE', data:[95, 75, 85, 78, 80, 88, 92], borderColor: '#00732F', backgroundColor: 'rgba(0,115,47,0.12)', pointBackgroundColor: '#00732F', borderWidth: 2 },
+      { label: 'India–Gulf Average', data:[60, 45, 50, 70, 55, 55, 65], borderColor: '#FF6B1A', backgroundColor: 'rgba(255,107,26,0.07)', pointBackgroundColor: '#FF6B1A', borderWidth: 2 },
+    ]
+  },
+  options: { scales: { r: { grid: { color: 'rgba(255,255,255,0.08)' }, pointLabels: { font:{size:10} }, ticks: { display:false }, suggestedMin: 0, suggestedMax: 100 } }, plugins: { legend: { labels: { boxWidth:10 } } } }
+});
+
+new Chart(document.getElementById('speedChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Modi UAE Visit 2015','Comprehensive SP 2017','Modi Visit 2018','CEPA Feb 2022','MbZ India Visit 2022','G20 + IMEC 2023','MbZ India Jan 2026'],
+    datasets: [{ label: 'Agreements / MoUs Signed', data:[5, 8, 6, 14, 10, 12, 7], backgroundColor: 'rgba(0,115,47,0.7)', borderRadius: 3, borderWidth: 0 }]
+  },
+  options: { plugins:{ legend:{ display:false } }, scales: { x:{ grid:{ display:false } }, y:{ grid:{ color:gridColor }, ticks:{ stepSize:2 } } } }
+});
+
+new Chart(document.getElementById('lawChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['MoUs (Non-Binding)','Binding Treaties (CEPA, BIT)','Declarations / Frameworks','Letters of Intent','Institutional Agreements'],
+    datasets: [{ data:[40, 25, 18, 8, 9], backgroundColor:['#E8B84B','#00732F','#2DD4BF','#f97316','#a78bfa'], borderWidth:0 }]
+  },
+  options: { cutout:'60%', plugins:{ legend:{ position:'bottom', labels:{ boxWidth:10, padding:12, font:{size:11} } } } }
+});
+</script>
+</body>
+</html>

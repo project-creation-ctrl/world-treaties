@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>India–Saudi Arabia Treaty Architecture</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--c1:#15803d;--c2:#166534;--india:#FF6B1A;--gold:#E8B84B;--teal:#2DD4BF;--danger:#e63946;--bg:#0D0D0D;--bg2:#141414;--surface:rgba(255,255,255,0.04);--border:rgba(255,255,255,0.08);--text:#F0EDE6;--muted:rgba(240,237,230,0.5);--faint:rgba(240,237,230,0.15);}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;overflow-x:hidden;}
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;position:relative;overflow:hidden;padding:2rem;text-align:center;}
+.hero-noise{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(21,128,61,0.14) 0%,transparent 70%),radial-gradient(ellipse 40% 40% at 80% 80%,rgba(255,107,26,0.08) 0%,transparent 60%),radial-gradient(ellipse 60% 50% at 10% 20%,rgba(232,184,75,0.06) 0%,transparent 60%);pointer-events:none;}
+.dot-grid{position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,0.06) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;}
+.hero-eyebrow{font-family:'Space Mono',monospace;font-size:0.65rem;letter-spacing:0.4em;text-transform:uppercase;color:var(--c1);margin-bottom:2rem;opacity:0;animation:rise 0.9s ease forwards 0.2s;}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.8rem,8vw,7rem);font-weight:700;line-height:1.0;max-width:1000px;opacity:0;animation:rise 1s ease forwards 0.4s;}
+.hero h1 .c1{color:var(--c1);}.hero h1 .ind{color:var(--india);}
+.hero-sub{font-size:1rem;font-weight:300;color:var(--muted);max-width:640px;line-height:1.8;margin-top:1.5rem;opacity:0;animation:rise 1s ease forwards 0.6s;}
+.hero-flags{display:flex;align-items:center;gap:1rem;margin-top:3rem;opacity:0;animation:rise 1s ease forwards 0.8s;}
+.flag-pill{font-family:'Space Mono',monospace;font-size:0.7rem;letter-spacing:0.1em;padding:0.5rem 1.2rem;border-radius:100px;border:1px solid;}
+.flag-c1{border-color:var(--c1);color:var(--c1);background:rgba(21,128,61,0.09);}.flag-ind{border-color:var(--india);color:var(--india);background:rgba(255,107,26,0.08);}.vs{color:var(--muted);font-size:0.8rem;}
+.hero-kpis{display:flex;gap:3rem;margin-top:4rem;flex-wrap:wrap;justify-content:center;opacity:0;animation:rise 1s ease forwards 1s;}
+.kpi{text-align:center;}.kpi-val{font-family:'Cormorant Garamond',serif;font-size:3.2rem;font-weight:700;display:block;line-height:1;}.kpi-lbl{font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);display:block;margin-top:0.4rem;}
+.scroll-down{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.3em;color:var(--faint);animation:bounce 2s ease infinite;}
+nav{position:sticky;top:0;z-index:100;background:rgba(13,13,13,0.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:0.9rem 2rem;display:flex;align-items:center;gap:2rem;overflow-x:auto;}
+.nav-brand{font-family:'Cormorant Garamond',serif;font-size:1rem;font-style:italic;color:var(--text);white-space:nowrap;margin-right:auto;}
+nav a{font-family:'Space Mono',monospace;font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);text-decoration:none;white-space:nowrap;transition:color 0.2s;}
+nav a:hover{color:var(--c1);}
+.wrap{max-width:1200px;margin:0 auto;padding:5rem 2rem;}
+.section-eyebrow{font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.35em;text-transform:uppercase;color:var(--c1);margin-bottom:1rem;}
+.section-eyebrow.orange{color:var(--india);}.section-eyebrow.gold{color:var(--gold);}.section-eyebrow.teal{color:var(--teal);}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:600;line-height:1.15;margin-bottom:1rem;}
+.section-body{font-size:1rem;font-weight:300;color:var(--muted);max-width:700px;line-height:1.85;margin-bottom:3rem;}
+.stripe{background:var(--bg2);}
+.chart-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:1.75rem;position:relative;overflow:hidden;}
+.chart-card::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--c1),transparent);}
+.chart-card.orange-top::after{background:linear-gradient(90deg,var(--india),transparent);}
+.chart-card.gold-top::after{background:linear-gradient(90deg,var(--gold),transparent);}
+.chart-card.teal-top::after{background:linear-gradient(90deg,var(--teal),transparent);}
+.chart-title{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:600;margin-bottom:0.4rem;}
+.chart-sub{font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.1em;color:var(--muted);margin-bottom:1.5rem;}
+.chart-2col{display:grid;grid-template-columns:repeat(auto-fit,minmax(460px,1fr));gap:1.5rem;margin-bottom:1.5rem;}
+.chart-3col{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;margin-bottom:1.5rem;}
+.era-btns{display:flex;flex-wrap:wrap;gap:0.6rem;margin-bottom:1.5rem;}
+.era-btn{font-family:'Space Mono',monospace;font-size:0.62rem;letter-spacing:0.1em;padding:0.45rem 1rem;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;border-radius:100px;transition:all 0.2s;}
+.era-btn:hover,.era-btn.active{background:var(--c1);border-color:var(--c1);color:#fff;}
+.type-btns{display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:2rem;}
+.type-btn{font-family:'Space Mono',monospace;font-size:0.58rem;letter-spacing:0.1em;padding:0.35rem 0.9rem;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;border-radius:3px;transition:all 0.2s;text-transform:uppercase;}
+.type-btn.active,.type-btn:hover{border-color:rgba(255,255,255,0.3);color:var(--text);}
+.type-btn[data-t="energy"].active{border-color:#f97316;color:#f97316;}
+.type-btn[data-t="trade"].active{border-color:var(--gold);color:var(--gold);}
+.type-btn[data-t="defence"].active{border-color:var(--teal);color:var(--teal);}
+.type-btn[data-t="investment"].active{border-color:var(--c1);color:var(--c1);}
+.type-btn[data-t="cultural"].active{border-color:#a78bfa;color:#a78bfa;}
+.tl-wrap{position:relative;padding-left:2.5rem;}
+.tl-wrap::before{content:'';position:absolute;left:0;top:0;bottom:0;width:1px;background:linear-gradient(var(--c1),var(--c2),transparent);}
+.tl-item{position:relative;margin-bottom:2rem;opacity:0;transform:translateX(-8px);transition:all 0.35s ease;}
+.tl-item.visible{opacity:1;transform:translateX(0);}
+.tl-dot{position:absolute;left:-2.85rem;top:0.3rem;width:10px;height:10px;border-radius:50%;background:var(--c1);border:2px solid var(--bg);box-shadow:0 0 0 2px var(--c1);}
+.tl-dot.gold{background:var(--gold);box-shadow:0 0 0 2px var(--gold);}
+.tl-dot.teal{background:var(--teal);box-shadow:0 0 0 2px var(--teal);}
+.tl-dot.orange{background:#f97316;box-shadow:0 0 0 2px #f97316;}
+.tl-dot.purple{background:#a78bfa;box-shadow:0 0 0 2px #a78bfa;}
+.tl-year{font-family:'Space Mono',monospace;font-size:0.62rem;letter-spacing:0.18em;color:var(--c1);margin-bottom:0.25rem;}
+.tl-year.gold{color:var(--gold);}.tl-year.teal{color:var(--teal);}.tl-year.orange{color:#f97316;}.tl-year.purple{color:#a78bfa;}
+.tl-title{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:600;margin-bottom:0.3rem;}
+.tl-desc{font-size:0.875rem;color:var(--muted);line-height:1.7;}
+.tl-tag{display:inline-block;font-family:'Space Mono',monospace;font-size:0.58rem;letter-spacing:0.08em;padding:0.15rem 0.55rem;border-radius:2px;margin-top:0.5rem;margin-right:0.3rem;text-transform:uppercase;}
+.tag-energy{background:rgba(249,115,22,0.12);color:#f97316;border:1px solid rgba(249,115,22,0.3);}
+.tag-trade{background:rgba(232,184,75,0.15);color:var(--gold);border:1px solid rgba(232,184,75,0.3);}
+.tag-defence{background:rgba(45,212,191,0.12);color:var(--teal);border:1px solid rgba(45,212,191,0.3);}
+.tag-investment{background:rgba(21,128,61,0.12);color:var(--c1);border:1px solid rgba(21,128,61,0.3);}
+.tag-cultural{background:rgba(167,139,250,0.12);color:#a78bfa;border:1px solid rgba(167,139,250,0.3);}
+.impact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.25rem;margin-bottom:2rem;}
+.impact-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:1.5rem;position:relative;overflow:hidden;transition:border-color 0.2s;}
+.impact-card:hover{border-color:rgba(255,255,255,0.15);}
+.impact-card .badge{position:absolute;top:1rem;right:1rem;font-family:'Space Mono',monospace;font-size:0.55rem;letter-spacing:0.1em;padding:0.2rem 0.5rem;border-radius:2px;text-transform:uppercase;}
+.badge-high{background:rgba(21,128,61,0.2);color:var(--c1);border:1px solid rgba(21,128,61,0.3);}
+.badge-med{background:rgba(232,184,75,0.15);color:var(--gold);border:1px solid rgba(232,184,75,0.3);}
+.badge-teal{background:rgba(45,212,191,0.12);color:var(--teal);border:1px solid rgba(45,212,191,0.3);}
+.badge-energy{background:rgba(249,115,22,0.15);color:#f97316;border:1px solid rgba(249,115,22,0.3);}
+.impact-icon{font-size:1.8rem;margin-bottom:0.75rem;}
+.impact-title{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:600;margin-bottom:0.6rem;}
+.impact-body{font-size:0.85rem;color:var(--muted);line-height:1.7;}
+.quote-box{background:rgba(21,128,61,0.06);border:1px solid rgba(21,128,61,0.2);border-left:3px solid var(--c1);border-radius:0 6px 6px 0;padding:1.5rem 2rem;margin:2rem 0;}
+.quote-box.gold-border{border-left-color:var(--gold);background:rgba(232,184,75,0.05);border-color:rgba(232,184,75,0.15);}
+.quote-label{font-family:'Space Mono',monospace;font-size:0.58rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--c1);margin-bottom:0.75rem;}
+.quote-label.gold{color:var(--gold);}
+.quote-text{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-style:italic;line-height:1.75;}
+.cmp-table{width:100%;border-collapse:collapse;font-size:0.875rem;margin-bottom:2rem;}
+.cmp-table th{font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);padding:0.7rem 1rem;border-bottom:1px solid var(--border);text-align:left;}
+.cmp-table td{padding:0.85rem 1rem;border-bottom:1px solid rgba(255,255,255,0.04);color:rgba(240,237,230,0.85);line-height:1.5;}
+.cmp-table tr:hover td{background:rgba(255,255,255,0.02);}
+.align-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:1rem;margin:2rem 0;}
+.align-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:1.25rem;text-align:center;}
+.align-country{font-family:'Space Mono',monospace;font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:0.75rem;}
+.align-score{font-family:'Cormorant Garamond',serif;font-size:2.4rem;font-weight:700;display:block;line-height:1;margin-bottom:0.5rem;}
+.bar-outer{height:4px;background:rgba(255,255,255,0.08);border-radius:2px;overflow:hidden;margin:0.4rem 0;}
+.bar-inner{height:100%;border-radius:2px;width:0;transition:width 1.2s ease;}
+.align-label{font-family:'Space Mono',monospace;font-size:0.55rem;letter-spacing:0.1em;color:var(--faint);}
+.status-pill{display:inline-block;font-family:'Space Mono',monospace;font-size:0.58rem;letter-spacing:0.1em;padding:0.2rem 0.6rem;border-radius:100px;text-transform:uppercase;}
+.status-active{background:rgba(21,128,61,0.15);color:var(--c1);border:1px solid rgba(21,128,61,0.3);}
+.status-signed{background:rgba(232,184,75,0.12);color:var(--gold);border:1px solid rgba(232,184,75,0.25);}
+.status-terminated{background:rgba(100,100,100,0.15);color:#888;border:1px solid rgba(100,100,100,0.3);}
+.status-ongoing{background:rgba(45,212,191,0.12);color:var(--teal);border:1px solid rgba(45,212,191,0.3);}
+.hr{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:2rem 0;}
+footer{background:rgba(0,0,0,0.5);border-top:1px solid var(--border);padding:3rem 2rem;text-align:center;}
+footer h3{font-family:'Cormorant Garamond',serif;font-size:1.2rem;margin-bottom:0.5rem;}
+footer p{font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.12em;color:var(--faint);margin-top:0.5rem;}
+@keyframes rise{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+@keyframes bounce{0%,100%{opacity:0.3;transform:translateX(-50%) translateY(0);}50%{opacity:0.6;transform:translateX(-50%) translateY(6px);}}
+@media(max-width:768px){.chart-2col,.chart-3col{grid-template-columns:1fr;}.hero-kpis{gap:1.5rem;}}
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="hero-noise"></div><div class="dot-grid"></div>
+  <div class="hero-eyebrow">Public International Law · Treaty Analysis · 2025–26</div>
+  <h1><span class="ind">India</span> &amp; <span class="c1">Saudi Arabia</span><br>Treaty Architecture</h1>
+  <p class="hero-sub">From the Delhi Declaration to a $100 billion Vision 2030 partnership — how India and Saudi Arabia built their most ambitious bilateral relationship through the Strategic Partnership Council, energy treaties, defence agreements, and the Hajj framework.</p>
+  <div class="hero-flags"><span class="flag-pill flag-ind">🇮🇳 India</span><span class="vs">—</span><span class="flag-pill flag-c1">🇸🇦 Saudi Arabia</span></div>
+  <div class="hero-kpis">
+    <div class="kpi"><span class="kpi-val" style="color:var(--c1)">1947</span><span class="kpi-lbl">Diplomatic Relations</span></div>
+    <div class="kpi"><span class="kpi-val" style="color:var(--gold)">50+</span><span class="kpi-lbl">MoUs Signed</span></div>
+    <div class="kpi"><span class="kpi-val" style="color:#f97316">$41.9B</span><span class="kpi-lbl">Bilateral Trade FY25</span></div>
+    <div class="kpi"><span class="kpi-val" style="color:var(--india)">$100B</span><span class="kpi-lbl">Saudi Investment Pledge</span></div>
+    <div class="kpi"><span class="kpi-val" style="color:var(--teal)">1.75M</span><span class="kpi-lbl">Hajj Quota (2024)</span></div>
+  </div>
+  <div class="scroll-down">↓ SCROLL</div>
+</div>
+
+<nav>
+  <span class="nav-brand">India–Saudi Arabia Treaty Watch</span>
+  <a href="#timeline">Timeline</a>
+  <a href="#agreements">Agreements</a>
+  <a href="#spc">SPC Framework</a>
+  <a href="#energy">Energy</a>
+  <a href="#analysis">PIL Analysis</a>
+</nav>
+
+<div class="wrap" id="timeline">
+  <div class="section-eyebrow">Section 01 — Historical Record</div>
+  <h2 class="section-title">India–Saudi Arabia Treaty Timeline: 1947–2025</h2>
+  <p class="section-body">India–Saudi Arabia's treaty relationship transformed dramatically after 2006. From a purely energy-transactional relationship, it has evolved into a comprehensive strategic partnership with the SPC (Strategic Partnership Council) as its institutional anchor — and a $100B investment commitment as its most audacious expression.</p>
+  <div class="era-btns">
+    <button class="era-btn active" onclick="filterTL('all',this)">All Eras</button>
+    <button class="era-btn" onclick="filterTL('early',this)">Foundation 1947–2005</button>
+    <button class="era-btn" onclick="filterTL('modern',this)">Strategic Elevation 2006–2019</button>
+    <button class="era-btn" onclick="filterTL('new',this)">SPC Era 2019–2025</button>
+  </div>
+  <div class="type-btns">
+    <button class="type-btn active" data-t="all" onclick="filterType('all',this)">All Types</button>
+    <button class="type-btn" data-t="energy" onclick="filterType('energy',this)">Energy</button>
+    <button class="type-btn" data-t="trade" onclick="filterType('trade',this)">Trade</button>
+    <button class="type-btn" data-t="defence" onclick="filterType('defence',this)">Defence</button>
+    <button class="type-btn" data-t="investment" onclick="filterType('investment',this)">Investment</button>
+    <button class="type-btn" data-t="cultural" onclick="filterType('cultural',this)">Cultural</button>
+  </div>
+  <div class="tl-wrap" id="tl-container"></div>
+</div>
+
+<div class="stripe">
+<div class="wrap" id="agreements">
+  <div class="section-eyebrow orange">Section 02 — Full Agreement Register</div>
+  <h2 class="section-title">India–Saudi Arabia Key Agreements</h2>
+  <p class="section-body">Saudi Arabia is India's most important West Asian partner by trade volume ($41.9B), energy dependency (14.3% of crude), and strategic weight. The 2019 SPC agreement institutionalised the bilateral at the highest level — creating a framework comparable to India's QUAD partnerships.</p>
+  <table class="cmp-table">
+    <thead><tr><th>Agreement / MoU</th><th>Year</th><th>Type</th><th>Status</th><th>Significance</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Delhi Declaration</strong></td><td>2006</td><td>Strategic</td><td><span class="status-pill status-active">Active</span></td><td>King Abdullah's first Saudi royal visit to India in 51 years. Strategic energy partnership; stable crude supply commitment; seeds the modern relationship.</td></tr>
+      <tr><td><strong>Energy Partnership Agreement</strong></td><td>2006</td><td>Energy</td><td><span class="status-pill status-active">Active</span></td><td>Long-term crude supply via contracts; joint ventures in oil and gas; signals India-Saudi strategic energy dependence formalisation.</td></tr>
+      <tr><td><strong>Bilateral Investment Treaty (BIT)</strong></td><td>2006</td><td>Investment</td><td><span class="status-pill status-terminated">Terminated 2019</span></td><td>India unilaterally terminated all BITs in 2016-19 reform. Signed Jan 2006; in force May 2008; terminated Jul 2019.</td></tr>
+      <tr><td><strong>ISRO–King Abdulaziz City for Science (KACST) MoU</strong></td><td>2006</td><td>Science</td><td><span class="status-pill status-active">Active</span></td><td>Space cooperation; peaceful use of outer space; India's soft power through space technology</td></tr>
+      <tr><td><strong>Riyadh Declaration — Strategic Partnership</strong></td><td>2010</td><td>Strategic</td><td><span class="status-pill status-active">Active</span></td><td>PM Manmohan Singh's visit. Elevates bilateral to Strategic Partnership. Formalises political consultations, defence cooperation, and economic exchanges.</td></tr>
+      <tr><td><strong>Extradition Treaty</strong></td><td>2010</td><td>Legal</td><td><span class="status-pill status-active">Active</span></td><td>Critical for Indian diaspora governance; enables return of economic fugitives from India who flee to Saudi Arabia</td></tr>
+      <tr><td><strong>Transfer of Sentenced Persons Agreement</strong></td><td>2010</td><td>Legal</td><td><span class="status-pill status-active">Active</span></td><td>Indian nationals sentenced in Saudi Arabia can serve sentence in India; welfare provision for 2.2M Indian diaspora</td></tr>
+      <tr><td><strong>Cultural Cooperation MoU</strong></td><td>2010</td><td>Cultural</td><td><span class="status-pill status-active">Active</span></td><td>Cultural exchange; Indian participation in Janadriyah National Festival; 'India Guest of Honour' 2018</td></tr>
+      <tr><td><strong>Defence Cooperation Agreement</strong></td><td>2014</td><td>Defence</td><td><span class="status-pill status-active">Active</span></td><td>Foundation for bilateral defence cooperation; covers joint military training, information sharing; naval exercise Al Mohed Al Hindi launched</td></tr>
+      <tr><td><strong>MoU on Investments (MBS Visit — 6 MoUs)</strong></td><td>2019</td><td>Investment</td><td><span class="status-pill status-active">Active</span></td><td>Crown Prince MBS visits India; announces $100B investment pledge; 6 MoUs on investment, tourism, housing, audio-visual, ISA joining</td></tr>
+      <tr><td><strong>Strategic Partnership Council (SPC) Agreement</strong></td><td>2019</td><td>Strategic</td><td><span class="status-pill status-active">Active</span></td><td>PM Modi's Oct 2019 Riyadh visit. Highest-level bilateral institutional framework: PSSC and Economic/Investment sub-committees + 4 JWGs each. 12 MoUs signed including energy, defence, civil aviation, medical products.</td></tr>
+      <tr><td><strong>Hajj Agreement 2024</strong></td><td>2024</td><td>Religious</td><td><span class="status-pill status-active">Active</span></td><td>Annual bilateral Hajj quota agreement: 1,75,025 pilgrims from India. Unique treaty type — India's religious diplomacy with Saudi Arabia.</td></tr>
+      <tr><td><strong>MoU on Yoga Cooperation</strong></td><td>2021</td><td>Cultural</td><td><span class="status-pill status-active">Active</span></td><td>Saudi Ministry of Sports and India's AYUSH Ministry; first country in Gulf to formally adopt Indian Yoga standards and courses</td></tr>
+      <tr><td><strong>Defence Ammunition Export Deal</strong></td><td>2024</td><td>Defence</td><td><span class="status-pill status-active">Active</span></td><td>Munitions India Ltd signed $225M defence export agreement to Saudi Arabia in Feb 2024 — landmark arms export from India to Saudi Arabia</td></tr>
+      <tr><td><strong>PM Modi Jeddah Visit — MoUs (2025)</strong></td><td>2025</td><td>Strategic</td><td><span class="status-pill status-signed">Signed Apr 2025</span></td><td>Space cooperation (Dept of Space–Saudi Space Agency); Health cooperation; Anti-Doping (NADA–SAADC); India Post–Saudi Post; $100B+ investment reaffirmed; 2 oil refineries; SPC expanded to 4 ministerial committees.</td></tr>
+      <tr><td><strong>MoU on Green/Clean Hydrogen & Electrical Interconnection</strong></td><td>2023</td><td>Energy</td><td><span class="status-pill status-active">Active</span></td><td>Bilateral cooperation on renewable energy transition; green hydrogen production, electricity exchange and supply chain resilience</td></tr>
+      <tr><td><strong>India–GCC Joint Action Plan 2024–28</strong></td><td>2024</td><td>Trade</td><td><span class="status-pill status-active">Active</span></td><td>Saudi Arabia co-chairs GCC; India–GCC Strategic Dialogue Joint Action Plan signed Sep 2024; mechanism for consultations MoU signed</td></tr>
+    </tbody>
+  </table>
+</div>
+</div>
+
+<div class="wrap" id="spc">
+  <div class="section-eyebrow gold">Section 03 — The SPC: India's Most Ambitious Gulf Framework</div>
+  <h2 class="section-title">Strategic Partnership Council: Anatomy of a Mega-Relationship</h2>
+  <p class="section-body">The 2019 SPC Agreement is the most institutionally sophisticated bilateral framework India has established with any Gulf country. It creates a two-tier council with sub-committees, ministerial meetings, senior officials meetings, and joint working groups — modelled on India's most advanced partnerships globally.</p>
+  <div class="impact-grid">
+    <div class="impact-card"><div class="badge badge-high">Architecture</div><div class="impact-icon">🏛️</div><div class="impact-title">SPC Structure: 4 Ministerial Committees</div><div class="impact-body">After April 2025 expansion: (1) Political, Consular & Security Cooperation; (2) Defence Cooperation; (3) Economy, Energy, Investment & Technology; (4) Culture, Education, Healthcare & Diaspora. Each has JWGs and senior official mechanisms.</div></div>
+    <div class="impact-card"><div class="badge badge-energy">Energy</div><div class="impact-icon">🛢️</div><div class="impact-title">$50B Energy Investment Package</div><div class="impact-body">Saudi Arabia committed $50B toward energy projects in India (Apr 2025). Includes 2 oil refineries (9 MMT capacity each) with Saudi Aramco taking 26% equity stake. Saudi Arabia: India's 3rd largest crude supplier (14.3% of imports).</div></div>
+    <div class="impact-card"><div class="badge badge-teal">Defence</div><div class="impact-icon">⚔️</div><div class="impact-title">$15B Defence Collaboration Package</div><div class="impact-body">Defence Cooperation Committee formed under SPC (2025). Joint military exercises (Al Mohed Al Hindi naval exercise). $225M Munitions India Ltd export deal (2024). Technology transfer and drone surveillance cooperation discussed.</div></div>
+    <div class="impact-card"><div class="badge badge-med">Investment</div><div class="impact-icon">💰</div><div class="impact-title">$100B Investment Commitment</div><div class="impact-body">First announced during MBS's 2019 visit; reaffirmed in 2025. KIA, PIF (Public Investment Fund), and private Saudi capital targeting Indian infrastructure, tech startups, AI, biotech, and renewable energy sectors.</div></div>
+    <div class="impact-card"><div class="badge badge-high">Diaspora</div><div class="impact-icon">👥</div><div class="impact-title">2.2 Million Indians — Second Largest Gulf Diaspora</div><div class="impact-body">2.2M Indians in Saudi Arabia — second largest Gulf diaspora after UAE. Saudi Arabia has eased Police Clearance Certificate requirement for Indians (2022). Largest source of remittances in Saudi Arabia from any single country.</div></div>
+    <div class="impact-card"><div class="badge badge-med">Hajj</div><div class="impact-icon">🕌</div><div class="impact-title">Annual Hajj Agreement — Religious Diplomacy</div><div class="impact-body">India has the largest Hajj quota of any country: 175,025 pilgrims in 2024. Annual bilateral Hajj Agreement is a unique treaty instrument — no other bilateral relationship blends religious access with formal governmental agreements in this way.</div></div>
+  </div>
+  <div class="quote-box">
+    <div class="quote-label">Strategic Weight</div>
+    <p class="quote-text">"The India–Saudi Strategic Partnership Council represents a deliberate institutional elevation — transforming what was essentially an energy-and-diaspora relationship into a comprehensive strategic framework. With $41.9B in annual bilateral trade, a $100B investment pledge, and a new defence committee, India and Saudi Arabia have built the Gulf's most consequential bilateral relationship — one that now shapes both countries' global positioning."</p>
+  </div>
+</div>
+
+<div class="stripe">
+<div class="wrap" id="energy">
+  <div class="section-eyebrow teal">Section 04 — Energy: The Treaty Foundation</div>
+  <h2 class="section-title">Oil, LNG & the Green Transition</h2>
+  <p class="section-body">Saudi Arabia is one of India's top 3 crude oil suppliers — a relationship formalised through the 2006 Delhi Declaration and deepened through Vision 2030 collaboration on green hydrogen, oil refineries, and energy security frameworks.</p>
+  <div class="chart-2col">
+    <div class="chart-card"><div class="chart-title">Bilateral Trade (USD Billion)</div><div class="chart-sub">Growth trajectory FY2018–FY2025</div><canvas id="tradeChart"></canvas></div>
+    <div class="chart-card orange-top"><div class="chart-title">Treaty Portfolio Breakdown</div><div class="chart-sub">India–Saudi agreements by category</div><canvas id="typeChart"></canvas></div>
+  </div>
+  <div class="chart-2col">
+    <div class="chart-card gold-top"><div class="chart-title">Saudi Arabia's Energy Significance to India</div><div class="chart-sub">% share of India's total crude & LPG imports</div><canvas id="energyChart"></canvas></div>
+    <div class="chart-card teal-top"><div class="chart-title">SPC MoUs Signed Per Major Visit</div><div class="chart-sub">Number of agreements at each summit</div><canvas id="mouChart"></canvas></div>
+  </div>
+</div>
+</div>
+
+<div class="wrap" id="analysis">
+  <div class="section-eyebrow gold">Section 05 — PIL Analysis</div>
+  <h2 class="section-title">What Saudi Arabia's Treaty Pattern Reveals</h2>
+  <p class="section-body">India–Saudi Arabia demonstrates a treaty strategy where soft-law instruments (MoUs, declarations) have outpaced hard-law agreements (binding treaties). The SPC is not a treaty — it is a political declaration creating institutional mechanisms. This reflects both countries' preference for flexibility over legally binding obligations.</p>
+  <div class="align-grid" id="align-grid"></div>
+  <div class="hr"></div>
+  <div class="chart-3col">
+    <div class="chart-card"><div class="chart-title">India–Saudi Sector Radar</div><div class="chart-sub">Engagement depth by domain</div><canvas id="radarChart"></canvas></div>
+    <div class="chart-card orange-top"><div class="chart-title">Soft Law vs Hard Law</div><div class="chart-sub">Binding treaties vs MoUs/Declarations (India–KSA)</div><canvas id="lawChart"></canvas></div>
+    <div class="chart-card gold-top"><div class="chart-title">India–KSA vs India–UAE Comparison</div><div class="chart-sub">Treaty depth across key sectors</div><canvas id="compareChart"></canvas></div>
+  </div>
+  <div class="quote-box gold-border">
+    <div class="quote-label gold">PIL Conclusion — Institutionalised Soft Law</div>
+    <p class="quote-text">"The India–Saudi relationship is a case study in institutionalised soft law — a vast network of MoUs, declarations, and councils that create political commitment without legal obligation. Unlike a treaty (pacta sunt servanda), MoUs are non-binding in international law. Yet the SPC's institutional architecture creates what PIL scholars call 'compliance pull' — the political cost of non-performance becomes equivalent to treaty breach. India has deliberately chosen this model with Saudi Arabia to preserve strategic flexibility while deepening commitment."</p>
+  </div>
+</div>
+
+<footer>
+  <h3>India–Saudi Arabia Treaty Architecture — Public International Law Analysis</h3>
+  <p>Sources: Embassy of India Riyadh · MEA India · IBEF · Middle East Briefing · UNCTAD · Wikipedia · PIB India</p>
+  <p style="margin-top:0.5rem;">Data as of April 2026 · Created for Public International Law Research</p>
+</footer>
+
+<script>
+Chart.defaults.color='rgba(240,237,230,0.55)';Chart.defaults.borderColor='rgba(255,255,255,0.07)';Chart.defaults.font.family="'DM Sans',sans-serif";
+const gridColor='rgba(255,255,255,0.06)';
+const TL=[
+  {year:1947,era:'early',type:'cultural',dotClass:'purple',yearClass:'purple',title:'Diplomatic Relations — Independence Era',desc:'India and Saudi Arabia establish diplomatic relations. The relationship is initially limited — post-partition, India focuses on South Asia while Saudi Arabia has stronger ties with the Western bloc.'},
+  {year:1975,era:'early',type:'cultural',dotClass:'purple',yearClass:'purple',title:'Cultural Ties — Early Framework',desc:'Cultural cooperation begins. Saudi Arabia becomes a major destination for Indian Muslim workers seeking employment during the oil boom. The Indian diaspora begins to form the bedrock of bilateral ties.'},
+  {year:1981,era:'early',type:'cultural',dotClass:'',yearClass:'',title:'PM Indira Gandhi Visits Saudi Arabia',desc:'Prime Minister Indira Gandhi visits Saudi Arabia. Focuses on energy trade and diaspora welfare. The relationship is primarily transactional — oil for labour remittances — rather than strategic.'},
+  {year:2006,era:'modern',type:'energy',dotClass:'orange',yearClass:'orange',title:'Delhi Declaration — King Abdullah\'s Historic Visit',desc:'King Abdullah of Saudi Arabia makes the first Saudi royal visit to India in 51 years. Delhi Declaration signed. Strategic energy partnership established. Long-term crude oil supply contracts. ISRO–KACST space MoU. DTAA signed. Transforms the bilateral from transactional to strategic.'},
+  {year:2010,era:'modern',type:'investment',dotClass:'',yearClass:'',title:'Riyadh Declaration — Strategic Partnership',desc:'PM Manmohan Singh visits Saudi Arabia. Riyadh Declaration elevates ties to Strategic Partnership. Extradition Treaty and Transfer of Sentenced Persons agreement signed. Cultural MoU. Four other agreements including Transfer of Sentenced Persons.'},
+  {year:2014,era:'modern',type:'defence',dotClass:'teal',yearClass:'teal',title:'Defence Cooperation Framework — Modi Era Begins',desc:'India and Saudi Arabia deepen defence ties following PM Modi\'s election. Defence cooperation agreement formalised. Naval exercise Al Mohed Al Hindi initiated. Saudi Arabia backs India on Kashmir — major diplomatic signal.'},
+  {year:2016,era:'modern',type:'investment',dotClass:'',yearClass:'',title:'PM Modi Visits Riyadh — Enhanced Partnership',desc:'PM Modi visits Riyadh. King Salman confers King Abdulaziz Sash (Saudi\'s highest civilian honour) on Modi. Focus on energy, security, defence, diaspora. India becomes Saudi Arabia\'s preferred Asian partner.'},
+  {year:2019,era:'modern',type:'investment',dotClass:'gold',yearClass:'gold',title:'Crown Prince MBS Visits India — $100B Pledge',desc:'Crown Prince Mohammed bin Salman visits India in February 2019. Announces $100B investment commitment. 6 MoUs signed: investment, tourism, housing, audio-visual, ISA joining. India–Saudi Investment Forum inaugurated.'},
+  {year:2019,era:'new',type:'investment',dotClass:'',yearClass:'',title:'Strategic Partnership Council Agreement — Institutional Landmark',desc:'SPC Agreement signed during PM Modi\'s October 2019 Riyadh visit. Highest-level bilateral council with two sub-committees: PSSC (political, security, social, cultural) and Economy & Investments. 12 MoUs signed covering energy, security, defence production, civil aviation, medical products, strategic petroleum reserves, SME, and diplomat training.'},
+  {year:2021,era:'new',type:'cultural',dotClass:'purple',yearClass:'purple',title:'Yoga Cooperation MoU — Soft Power Milestone',desc:'MoU on Yoga cooperation signed between Saudi Ministry of Sports and India\'s AYUSH Ministry. Saudi Arabia becomes first Gulf country to formally adopt Indian Yoga standards and courses. PM features it on Mann Ki Baat.'},
+  {year:2023,era:'new',type:'energy',dotClass:'orange',yearClass:'orange',title:'MoU on Green Hydrogen & Electrical Interconnection',desc:'India and Saudi Arabia sign bilateral MoU on cooperation in green/clean hydrogen, electrical interconnection, and supply chains. Reflects Saudi Vision 2030 renewable pivot and India\'s National Green Hydrogen Mission.'},
+  {year:2023,era:'new',type:'investment',dotClass:'gold',yearClass:'gold',title:'MBS Visits India — G20 Summit + SPC Leaders Meeting',desc:'Crown Prince MBS visits India for G20 Summit and 1st Leaders Meeting of SPC. 8 MoUs signed across energy, banking, investment, manufacturing, archival, anti-corruption, and water desalination. India–Saudi Investment Forum: 50+ B2B and B2G MoUs.'},
+  {year:2024,era:'new',type:'defence',dotClass:'teal',yearClass:'teal',title:'Defence Ammunition Export — $225M Deal',desc:'Munitions India Ltd signs $225M defence ammunition export agreement to Saudi Arabia at World Defence Show in Riyadh. First Indian arms export to Saudi Arabia of this scale. 6th meeting of PSSC Joint Committee on Defence held September 2024.'},
+  {year:2025,era:'new',type:'investment',dotClass:'',yearClass:'',title:'PM Modi State Visit Jeddah — SPC 2nd Leaders Meeting',desc:'PM Modi visits Jeddah April 22, 2025. SPC expanded to 4 ministerial committees. MoUs on space, health, anti-doping, postal cooperation. 2 oil refineries agreed. Saudi Arabia reaffirms $100B commitment. Feasibility Agreement on Electrical Transmission signed.'},
+];
+let eF='all',tF='all';
+function renderTL(){const c=document.getElementById('tl-container');const filtered=TL.filter(d=>(eF==='all'||d.era===eF)&&(tF==='all'||d.type===tF));c.innerHTML=filtered.map((d,i)=>`<div class="tl-item" style="transition-delay:${i*0.04}s"><div class="tl-dot ${d.dotClass}"></div><div class="tl-year ${d.yearClass}">${d.year}</div><div class="tl-title">${d.title}</div><div class="tl-desc">${d.desc}</div><span class="tl-tag tag-${d.type}">${d.type}</span></div>`).join('');setTimeout(()=>document.querySelectorAll('.tl-item').forEach(el=>el.classList.add('visible')),60);}
+function filterTL(era,btn){eF=era;document.querySelectorAll('.era-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderTL();}
+function filterType(type,btn){tF=type;document.querySelectorAll('.type-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderTL();}
+renderTL();
+new Chart(document.getElementById('tradeChart'),{type:'line',data:{labels:['FY18','FY19','FY20','FY21','FY22','FY23','FY24','FY25'],datasets:[{label:'Total Bilateral Trade',data:[26.9,27.5,22.3,22.7,42.9,52.7,42.9,41.9],borderColor:'#15803d',backgroundColor:'rgba(21,128,61,0.1)',fill:true,tension:0.4,pointRadius:4},{label:'India Exports',data:[8.2,9.0,6.8,7.1,9.5,11.2,11.3,11.76],borderColor:'#FF6B1A',fill:false,tension:0.4,pointRadius:3}]},options:{responsive:true,interaction:{mode:'index',intersect:false},plugins:{legend:{labels:{boxWidth:10,padding:18}}},scales:{x:{grid:{color:gridColor}},y:{grid:{color:gridColor},beginAtZero:true}}}});
+new Chart(document.getElementById('typeChart'),{type:'doughnut',data:{labels:['Energy / Resources','Trade / Investment','Defence / Security','Cultural / Diaspora','Legal / Consular','Science / Space'],datasets:[{data:[28,25,18,14,10,5],backgroundColor:['#f97316','#E8B84B','#2DD4BF','#a78bfa','#60a5fa','#15803d'],borderWidth:0}]},options:{cutout:'60%',plugins:{legend:{position:'bottom',labels:{boxWidth:10,padding:12,font:{size:11}}}}}});
+new Chart(document.getElementById('energyChart'),{type:'bar',data:{labels:['FY20','FY21','FY22','FY23','FY24','FY25'],datasets:[{label:'% Crude Imports',data:[16.8,15.2,16.1,14.9,14.3,14.3],backgroundColor:'rgba(249,115,22,0.7)',borderRadius:3},{label:'% LPG Imports',data:[19.5,18.2,17.8,18.5,18.2,18.2],backgroundColor:'rgba(21,128,61,0.6)',borderRadius:3}]},options:{plugins:{legend:{labels:{boxWidth:10}}},scales:{x:{grid:{display:false}},y:{grid:{color:gridColor},ticks:{callback:v=>v+'%'}}}}});
+new Chart(document.getElementById('mouChart'),{type:'bar',data:{labels:['King Abdullah Visit 2006','PM Singh Riyadh 2010','PM Modi 2016','MBS India 2019','PM Modi SPC 2019','MBS G20 2023','PM Modi Jeddah 2025'],datasets:[{label:'MoUs / Agreements Signed',data:[5,6,4,6,12,8,4],backgroundColor:'rgba(21,128,61,0.7)',borderRadius:3,borderWidth:0}]},options:{plugins:{legend:{display:false}},scales:{x:{grid:{display:false}},y:{grid:{color:gridColor},ticks:{stepSize:2}}}}});
+const alignData=[{country:'🇮🇳 India',score:70,color:'#FF6B1A',label:'Engaged multilateralist'},{country:'🇸🇦 Saudi Arabia',score:45,color:'#15803d',label:'Bilateral-strategic'},{country:'🇦🇪 UAE',score:75,color:'#2DD4BF',label:'Trade-first globalist'},{country:'🇰🇼 Kuwait',score:55,color:'#1d6fa4',label:'Cautious bilateral'},{country:'🇷🇺 Russia',score:50,color:'#e63946',label:'Strategic autonomy'},{country:'🇨🇳 China',score:55,color:'#a78bfa',label:'Functionalist'}];
+const ag=document.getElementById('align-grid');
+alignData.forEach(d=>{ag.innerHTML+=`<div class="align-card"><div class="align-country">${d.country}</div><span class="align-score" style="color:${d.color}">${d.score}%</span><div class="bar-outer"><div class="bar-inner" data-w="${d.score}" style="background:${d.color}"></div></div><div class="align-label">${d.label}</div></div>`;});
+setTimeout(()=>document.querySelectorAll('.bar-inner').forEach(b=>b.style.width=b.dataset.w+'%'),600);
+new Chart(document.getElementById('radarChart'),{type:'radar',data:{labels:['Energy','Trade','Investment','Defence','Cultural','Diaspora'],datasets:[{label:'India–Saudi Arabia',data:[88,80,82,65,70,85],borderColor:'#15803d',backgroundColor:'rgba(21,128,61,0.12)',pointBackgroundColor:'#15803d',borderWidth:2},{label:'India–Gulf Average',data:[72,65,55,40,50,60],borderColor:'#FF6B1A',backgroundColor:'rgba(255,107,26,0.07)',pointBackgroundColor:'#FF6B1A',borderWidth:2}]},options:{scales:{r:{grid:{color:'rgba(255,255,255,0.08)'},pointLabels:{font:{size:10}},ticks:{display:false},suggestedMin:0,suggestedMax:100}},plugins:{legend:{labels:{boxWidth:10}}}}});
+new Chart(document.getElementById('lawChart'),{type:'doughnut',data:{labels:['MoUs (Non-Binding)','Political Declarations','Binding Treaties','Institutional Agreements'],datasets:[{data:[55,25,15,5],backgroundColor:['#E8B84B','#15803d','#2DD4BF','#a78bfa'],borderWidth:0}]},options:{cutout:'60%',plugins:{legend:{position:'bottom',labels:{boxWidth:10,padding:12,font:{size:11}}}}}});
+new Chart(document.getElementById('compareChart'),{type:'bar',data:{labels:['Trade Coverage','Investment Depth','Defence Ties','Energy Framework','Legal Cooperation','Digital Economy'],datasets:[{label:'India–Saudi Arabia',data:[80,82,65,88,60,45],backgroundColor:'rgba(21,128,61,0.7)',borderRadius:2},{label:'India–UAE',data:[95,90,78,80,75,85],backgroundColor:'rgba(45,212,191,0.6)',borderRadius:2}]},options:{responsive:true,plugins:{legend:{labels:{boxWidth:10}}},scales:{x:{grid:{display:false}},y:{grid:{color:gridColor},max:100}}}});
+</script>
+</body>
+</html>
